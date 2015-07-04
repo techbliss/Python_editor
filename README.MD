@@ -4,7 +4,7 @@ Python language.
 Run Scripts within ida.
 
 todo
-python autocompletion
+python auto completion
 
 I always hated the Old Run script command, so i set up making my own editor for ida pro.
 
@@ -15,18 +15,23 @@ NEW BUILD.
 PyQt-win-gpl-4.11.4
 
 https://mega.co.nz/#!TxtTALqa!VgV9IE7QhnvpWUlPakL8DxfjZMu06w-RmFwE4bklZ4I
-extract to spesified folder in the archive.
+extract to specified folder in the archive.
 
-also you have to a newer sip version to get my PyQt4 build to work, the hexray PyQt4 build is years old.
+Also you have to a newer sip version to get my PyQt4 build to work, the hexray PyQt4 build is years old.
 
 Sip for PyQt4
 
-extract sip archive anywhere, goto root folder, and do.
-if you need help with this.
-contact me here http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_pyqt5-regular-python-2-7x86.683/
-nmake install
+Extract sip archive anywhere, goto root folder, and do.
 
-or copy build manuelly.
+name install
+
+or copy build manually.
+
+if you need help with this.
+Contact me here http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_pyqt5-regular-python-2-7x86.683/
+
+
+
 
 Download plugin.
 extarct to Ida Pro plugins folder.
