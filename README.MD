@@ -1,5 +1,7 @@
 Ida Pro python Editor v1
 
+what it Does:
+Just like the ida one but much nicer and better
 Python language.
 Run Scripts within ida.
 
