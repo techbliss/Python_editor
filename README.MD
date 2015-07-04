@@ -36,7 +36,7 @@ Contact me here http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_
 
 
 Download plugin.
-extarct to Ida Pro plugins folder.
+extract to Ida Pro plugins folder.
 
 use hotkey Alt+E and find it under File menu.
 
