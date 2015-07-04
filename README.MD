@@ -22,7 +22,8 @@ also you have to a newer sip version to get my PyQt4 build to work, the hexray P
 Sip for PyQt4
 
 extract sip archive anywhere, goto root folder, and do.
-
+if you need help with this.
+contact me here http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_pyqt5-regular-python-2-7x86.683/
 nmake install
 
 or copy build manuelly.
