@@ -22,6 +22,8 @@ extract to specified folder in the archive.
 Also you have to a newer sip version to get my PyQt4 build to work, the hexray PyQt4 build is years old.
 
 Sip for PyQt4
+sip 4.16.4
+https://mega.co.nz/#!i81kFQRR!hrg_1MsIJoojrP6c8vfvSWaaqiBbyjcjFhHmuJ43N9U
 
 Extract sip archive anywhere, goto root folder, and do.
 
