@@ -3,10 +3,28 @@
 # WARNING! All changes made in this file will be lost!
 
 import sys
+import os
+
 from PyQt4 import QtCore, QtGui, Qsci
 from PyQt4.Qsci import QsciScintilla, QsciLexerPython, QsciAPIs, QsciScintillaBase
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+
+
+
+#try to add system varibles YEEE!
+os.path.join(os.sep, 'PATH', 'LIB', 'INLCUDE')
+os.path.join(os.path.expanduser('~'), os.path.expandvars('%IDADIR%'))
+os.path.join(os.path.expanduser('~'), os.path.expandvars('%Path%'))
+os.path.join(os.path.expanduser('~'), os.path.expandvars('%INCLUDE%'))
+
+os.path.dirname(os.path.abspath(__file__))
+os.environ.get("PATH")
+os.path.join(os.environ["PATH"])
+os.environ.get("LIB")
+os.path.join(os.environ["LIB"])
+os.environ.get("INCLUDE")
+os.path.join(os.environ["INCLUDE"])
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
