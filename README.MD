@@ -1,9 +1,11 @@
-Ida Pro python Editor v1
+Ida Pro python Editor v1.1
 
 what it Does:
 Just like the ida one but much nicer and better
 Python language.
 Run Scripts within ida.
+
+
 
 todo
 python auto completion
@@ -41,6 +43,23 @@ Download plugin.
 extract to Ida Pro plugins folder.
 
 use hotkey Alt+E and find it under File menu.
+
+
+
+Changelog! v1.1
+
+removed darkness from skin.
+
+Added Api auto code completion  to the Code editor.
+For now apparently it to much info for ida to handle.
+Must be a Bug from hex-rays.
+So if you wanna test it load the editor strait from windows.
+added idaapi api
+added idc api
+
+
+Tip!
+Use hit hotkey Alt+E twize to load the editor.
 
 ![vdpqq](https://cloud.githubusercontent.com/assets/3592375/8509437/f6b4b458-22a2-11e5-9e45-16ea23bb5c5e.jpg)
 

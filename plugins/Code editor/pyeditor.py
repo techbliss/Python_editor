@@ -27,35 +27,6 @@ class Ui_vindu(object):
         self.codebox = Qsci.QsciScintilla(vindu)
         vindu.setObjectName(_fromUtf8("vindu"))
         vindu.resize(1093, 734)
-        vindu.setStyleSheet(_fromUtf8("QWidget { \n"
-"    background-color: #c0c0c0;\n"
-"    color: #ddd;\n"
-"}\n"
-"\n"
-"\n"
-"\n"
-"QPushButton {\n"
-"color: #333;\n"
-"border: 2px solid #555;\n"
-"border-radius: 0px;\n"
-"padding: 5px;\n"
-"background: qradialgradient(cx: 0.3, cy: -0.4,\n"
-"fx: 0.3, fy: -0.4,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #888);\n"
-"min-width: 80px;\n"
-"}\n"
-" \n"
-"QPushButton:hover {\n"
-"background: qradialgradient(cx: 0.3, cy: -0.4,\n"
-"fx: 0.3, fy: -0.4,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #bbb);\n"
-"}\n"
-" \n"
-"QPushButton:pressed {\n"
-"background: qradialgradient(cx: 0.4, cy: -0.1,\n"
-"fx: 0.4, fy: -0.1,\n"
-"radius: 1.35, stop: 0 #fff, stop: 1 #ddd);\n"
-"}"))
         self.codebox = Qsci.QsciScintilla(vindu)
         self.codebox.setGeometry(QtCore.QRect(-1, -1, 1101, 661))
         self.codebox.setToolTip(_fromUtf8(""))
@@ -79,8 +50,38 @@ class Ui_vindu(object):
         self.exbtr = QtGui.QPushButton(vindu)
         self.exbtr.setGeometry(QtCore.QRect(990, 680, 94, 34))
         self.exbtr.setObjectName(_fromUtf8("exbtr"))
+
         #python style
-        lexer = QsciLexerPython()
+        lexer = QsciLexerPython(self.codebox)
+
+
+        #api
+        '''
+        ida crash when using the api's
+        maybe bug with ida pro
+        for now use it outside ida.
+        if any have good idea how to load so it wont crash please say so.
+        #hack to add right folder.
+        #import sys
+        #import os
+        #idahome = idaapi.idadir("plugins\\Code editor\\")
+        #sys.path.append('/idahome')
+        #API
+        #os.path.dirname( os.path.realpath( __file__ ) )
+        #API_DIR = idaapi.idadir("plugins\\Code editor")
+        '''
+        #api Working so far
+        api = Qsci.QsciAPIs(lexer)
+        API_FILE = r'idc.api'
+        API_FILE2 = r'idaapi.api'
+        api.load(API_FILE)
+        api.load(API_FILE2)
+        api.prepare()
+        self.codebox.setAutoCompletionThreshold(4)
+        self.codebox.setAutoCompletionThreshold(6)
+        self.codebox.setAutoCompletionThreshold(8)
+        self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsAPIs)
+        self.codebox.setLexer(lexer)
         lexer.setDefaultFont(skrift)
         self.codebox.setLexer(lexer)
         self.codebox.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Consolas')
@@ -101,14 +102,6 @@ class Ui_vindu(object):
         self.codebox.setCaretLineBackgroundColor(QColor("#ffe4e4"))
 
         #try to load api
-        api = Qsci.QsciAPIs(lexer)
-
-        api.load('idaapi.py')
-        api.prepare()
-        self.codebox.setAutoCompletionThreshold(1)
-        self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsAPIs)
-        self.codebox.setLexer(lexer)
-
         self.retranslateUi(vindu)
         QtCore.QObject.connect(self.runbtr, QtCore.SIGNAL(_fromUtf8("clicked()")), self.codebox.selectAll)
         QtCore.QMetaObject.connectSlotsByName(vindu)
@@ -127,13 +120,14 @@ class Ui_vindu(object):
         self.curFile = ''
 
     def runto(self):
+        g = globals()
         exec str(self.codebox.text())
 
 
     def openfile(self, path=None):
         if not path:
-            path = QtGui.QFileDialog.getOpenFileName(self.impbtr, "Import",
-                    '', "Python Files (*.py *.pyc)")
+            path = QtGui.QFileDialog.getOpenFileName(self.impbtr, "Open File",
+                    '', "Python Files (*.py *.pyc *pyw)")
 
         if path:
             inFile = QtCore.QFile(path)
@@ -151,7 +145,7 @@ class Ui_vindu(object):
 
     def saveFile(self, fileName):
         fileName = QtGui.QFileDialog.getSaveFileName(self.exbtr, "Save as",
-                    '', "Python Files (*.py *.pyc)")
+                    '', "Python Files (*.py *.pyc *.pyw)")
         if fileName:
             self.savetext(fileName)
 
