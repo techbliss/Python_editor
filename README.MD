@@ -8,7 +8,9 @@ Run Scripts within ida.
 
 
 todo
-python auto completion
+python auto completion  CHECK
+better path recognition
+
 
 I always hated the Old Run script command, so i set up making my own editor for ida pro.
 
@@ -56,6 +58,14 @@ Must be a Bug from hex-rays.
 So if you wanna test it load the editor strait from windows.
 added idaapi api
 added idc api
+
+
+changelog 1.2
+
+added python.api
+added autotab when code is right.
+api dont work from ida yet so use that outside of ida.
+its ida that are restricted from loading it.
 
 
 Tip!
