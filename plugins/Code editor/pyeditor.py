@@ -72,7 +72,6 @@ class Ui_vindu(object):
         #python style
         lexer = QsciLexerPython(self.codebox)
 
-
         #api
         '''
         ida crash when using the api's
@@ -92,8 +91,10 @@ class Ui_vindu(object):
         api = Qsci.QsciAPIs(lexer)
         API_FILE = r'idc.api'
         API_FILE2 = r'idaapi.api'
+        API_FILE3 = r'python.api'
         api.load(API_FILE)
         api.load(API_FILE2)
+        api.load(API_FILE3)
         api.prepare()
         self.codebox.setAutoCompletionThreshold(1)
         self.codebox.setAutoCompletionThreshold(6)
@@ -118,8 +119,8 @@ class Ui_vindu(object):
         #auto line tab when code is right
         '''
         def bob():
-	    1234print "bob"
-	    '''
+        1234print "bob"
+         '''
         self.codebox.setAutoIndent(True)
 
         #brace
