@@ -115,6 +115,13 @@ class Ui_vindu(object):
         self.codebox.setMarginLineNumbers(0, True)
         self.codebox.setMarginsBackgroundColor(QColor("#cccccc"))
 
+        #auto line tab when code is right
+        '''
+        def bob():
+	    1234print "bob"
+	    '''
+        self.codebox.setAutoIndent(True)
+
         #brace
         self.codebox.setBraceMatching(QsciScintilla.SloppyBraceMatch)
         self.codebox.setCaretLineBackgroundColor(QColor("#ffe4e4"))
