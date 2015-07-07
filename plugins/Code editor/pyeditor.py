@@ -7,8 +7,8 @@ import os
 
 from PyQt4 import QtCore, QtGui, Qsci
 from PyQt4.Qsci import QsciScintilla, QsciLexerPython, QsciAPIs, QsciScintillaBase
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtGui import QFont, QFontMetrics, QColor
+
 
 
 
@@ -80,8 +80,8 @@ class Ui_vindu(object):
         for now use it outside ida.
         if any have good idea how to load so it wont crash please say so.
         #hack to add right folder.
-        #import sys
-        #import os
+        import sys
+        import os
         #idahome = idaapi.idadir("plugins\\Code editor\\")
         #sys.path.append('/idahome')
         #API
@@ -95,7 +95,7 @@ class Ui_vindu(object):
         api.load(API_FILE)
         api.load(API_FILE2)
         api.prepare()
-        self.codebox.setAutoCompletionThreshold(4)
+        self.codebox.setAutoCompletionThreshold(1)
         self.codebox.setAutoCompletionThreshold(6)
         self.codebox.setAutoCompletionThreshold(8)
         self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsAPIs)
