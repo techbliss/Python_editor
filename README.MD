@@ -11,9 +11,9 @@ api from ida dont works as yet!
 
 todo
 
-```python auto completion  CHECK
+python auto completion  CHECK
 better path recognition
-```
+
 
 
 now examples script are working.
