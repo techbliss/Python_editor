@@ -251,6 +251,7 @@ class Ui_MainWindow(object):
         g = globals()
         script = str(self.codebox.text())
         exec (script, g)
+        app.exec_(str(self.codebox.text()))
 
 
 
