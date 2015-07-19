@@ -234,8 +234,8 @@ class Ui_MainWindow(object):
     def savefile(self):
         self.fileName = QtGui.QFileDialog.getSaveFileName(self.vindu, "Save as",
                     '', "Python Files (*.py *.pyc *.pyw)")
-        if fileName:
-            self.savetext(fileName)
+        if self.fileName:
+            self.savetext(self.fileName)
 
 
     def savetext(self, fileName):
