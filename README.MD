@@ -20,8 +20,8 @@ NEW BUILD.
 
 PyQt-win-gpl-4.11.4
 <pre>
-https://mega.co.nz/#!TxtTALqa!VgV9IE7QhnvpWUlPakL8DxfjZMu06w-RmFwE4bklZ4I
-/<pre>
+https://mega.co.nz/#!TxtTALqa!VgV9IE7QhnvpWUlPakL8DxfjZMu06w-RmFwE4bklZ4I</pre>
+
 
 extract to specified folder in the archive.
 
@@ -30,8 +30,7 @@ Also you have to a newer sip version to get my PyQt4 build to work, the hexray P
 Sip for PyQt4
 sip 4.16.4
 <pre>
-https://mega.co.nz/#!i81kFQRR!hrg_1MsIJoojrP6c8vfvSWaaqiBbyjcjFhHmuJ43N9U
-</pre>
+https://mega.co.nz/#!i81kFQRR!hrg_1MsIJoojrP6c8vfvSWaaqiBbyjcjFhHmuJ43N9U</pre>
 
 
 Extract sip archive anywhere, goto root folder, and do.
