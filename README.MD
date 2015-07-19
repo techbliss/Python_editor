@@ -88,9 +88,9 @@ Totaly new interface.
 10. ResetFolding:       Ctrl+R
 11. CircleFolding:      Ctrl+C
 12. PlainFolding:       Ctrl+P
-13. X64dbgHome:         Ctrl+W
-14. Irc:                Ctrl+I
-15. X64dbgPythonGit:    Ctrl+G
+13. Hex-ray Home:       Ctrl+W
+14. Python API:         Ctrl+I
+15. Open git python:    Ctrl+G
 16. Author:             Ctrl+B</pre>
 
 
