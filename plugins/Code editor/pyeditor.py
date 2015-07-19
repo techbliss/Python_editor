@@ -251,7 +251,7 @@ class Ui_MainWindow(object):
         g = globals()
         script = str(self.codebox.text())
         exec (script, g)
-        QtGui.QCloseEvent(str(self.codebox.text()))
+        QtGui.QCloseEvent()
 
 
 
@@ -304,4 +304,10 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     app.exec_()
+
+class Dialog(QDialog):
+    def __init__(self, parent):
+        QDialog.__init__(parent)
+        line_edit = QLineEdit()
+
 
