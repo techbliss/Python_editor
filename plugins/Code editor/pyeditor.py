@@ -227,7 +227,6 @@ class Ui_MainWindow(object):
 
         if self.filename:
             with open(self.filename,"r") as self.file:
-                print self.file
                 self.codebox.setText(self.file.read())
 
 
