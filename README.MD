@@ -1,9 +1,12 @@
 Ida Pro python Editor v2
 
+
 what it Does:
+I always hated the Old Run script command, so i set up making my own editor for ida pro.
 Just like the ida one but much nicer and better
 Python language.
 Run Scripts within ida.
+now examples script are working.
 
 API:
 If you run the app strait in windows there is code recognition.
@@ -16,32 +19,30 @@ better path recognition
 
 
 
-now examples script are working.
-
-
-I always hated the Old Run script command, so i set up making my own editor for ida pro.
 
 I had to rebuild PyQt4 for ida, so it had all the stuff i needed.
 
 NEW BUILD.
 
-PyQt-win-gpl-4.11.4
+```PyQt-win-gpl-4.11.4
 
 https://mega.co.nz/#!TxtTALqa!VgV9IE7QhnvpWUlPakL8DxfjZMu06w-RmFwE4bklZ4I
-
+```
 
 extract to specified folder in the archive.
 
 Also you have to a newer sip version to get my PyQt4 build to work, the hexray PyQt4 build is years old.
-ANd you need the QsciScintilla
+And you need the QsciScintilla
+```
 Sip for PyQt4
 sip 4.16.4
-
 https://mega.co.nz/#!i81kFQRR!hrg_1MsIJoojrP6c8vfvSWaaqiBbyjcjFhHmuJ43N9U
+```
 
 Extract sip archive anywhere, goto root folder, and do.
-
-name install
+```
+nnmake install
+```
 
 or copy build manually.
 
@@ -52,11 +53,11 @@ Runing other Qt apps within the editor
 
 you have to remmeber to remove
 usually in buttom of Qt file
-
+```
 app = QtGui.QApplication(sys.argv)
 and
 sys.exit(app.exec_())
-
+```
 
 
 Download plugin.
@@ -69,7 +70,7 @@ Use hit hotkey Alt+E twize to load the editor.
 Changelog v2
 Totaly new interface.
 
-<pre>
+```
 1. Hotkeys:
 2.  NewFile:            Ctrl+N
 3.  OpenFile:           Ctrl+O
@@ -85,7 +86,8 @@ Totaly new interface.
 13. Hex-ray Home:       Ctrl+W
 14. Python API:         Ctrl+I
 15. Open git python:    Ctrl+G
-16. Author:             Ctrl+B</pre>
+16. Author:             Ctrl+B
+```
 
 
 
