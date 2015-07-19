@@ -30,8 +30,7 @@ Also you have to a newer sip version to get my PyQt4 build to work, the hexray P
 Sip for PyQt4
 sip 4.16.4
 
-([https://mega.co.nz/#!i81kFQRR!hrg_1MsIJoojrP6c8vfvSWaaqiBbyjcjFhHmuJ43N9U])
-
+https://mega.co.nz/#!i81kFQRR!hrg_1MsIJoojrP6c8vfvSWaaqiBbyjcjFhHmuJ43N9U
 
 Extract sip archive anywhere, goto root folder, and do.
 
@@ -40,7 +39,7 @@ name install
 or copy build manually.
 
 if you need help with this.
-Contact me here ([http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_pyqt5-regular-python-2-7x86.683/])
+Contact me here http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_pyqt5-regular-python-2-7x86.683/
 
 
 
@@ -48,8 +47,8 @@ Contact me here ([http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pr
 Download plugin.
 extract to Ida Pro plugins folder.
 
-use hotkey twice Alt+E and find it under File menu.
-
+Tip!
+Use hit hotkey Alt+E twize to load the editor.
 
 
 Changelog v2
@@ -74,9 +73,10 @@ Totaly new interface.
 16. Author:             Ctrl+B</pre>
 
 
-Tip!
-Use hit hotkey Alt+E twize to load the editor.
 
-![vdpqq](https://cloud.githubusercontent.com/assets/3592375/8509437/f6b4b458-22a2-11e5-9e45-16ea23bb5c5e.jpg)
+
+![v2](https://cloud.githubusercontent.com/assets/3592375/8766467/26a85fe2-2e39-11e5-9c75-a97259a7a7ad.png)
+
+
 
 
