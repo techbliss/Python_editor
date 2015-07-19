@@ -10,9 +10,10 @@ If you run the app strait in windows there is code recognition.
 api from ida dont works as yet!
 
 todo
-python auto completion  CHECK
+
+```python auto completion  CHECK
 better path recognition
-if you
+```
 
 
 now examples script are working.
@@ -26,7 +27,7 @@ NEW BUILD.
 
 PyQt-win-gpl-4.11.4
 
-([https://mega.co.nz/#!TxtTALqa!VgV9IE7QhnvpWUlPakL8DxfjZMu06w-RmFwE4bklZ4I])
+https://mega.co.nz/#!TxtTALqa!VgV9IE7QhnvpWUlPakL8DxfjZMu06w-RmFwE4bklZ4I
 
 
 extract to specified folder in the archive.
