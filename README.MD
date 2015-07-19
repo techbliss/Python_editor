@@ -9,7 +9,7 @@ Run Scripts within ida.
 
 todo
 python auto completion  CHECK
-better path recognition
+better path recognition FIXED
 
 
 I always hated the Old Run script command, so i set up making my own editor for ida pro.

@@ -226,14 +226,14 @@ class Ui_MainWindow(object):
                     '', "Python Files (*.py *.pyc *.pyw)")
 
         if self.filename:
-            with open(self.filename,"U") as self.file:
+            with open(self.filename,"r") as self.file:
                 print self.file
                 self.codebox.setText(self.file.read())
 
 
 
     def savefile(self):
-        fileName = QtGui.QFileDialog.getSaveFileName(self.vindu, "Save as",
+        self.fileName = QtGui.QFileDialog.getSaveFileName(self.vindu, "Save as",
                     '', "Python Files (*.py *.pyc *.pyw)")
         if fileName:
             self.savetext(fileName)
@@ -249,7 +249,9 @@ class Ui_MainWindow(object):
                     file.errorString())
 
     def runto(self):
-        exec str(self.codebox.text())
+        g = globals()
+        script = str(self.codebox.text())
+        exec (script, g)
 
 
 
