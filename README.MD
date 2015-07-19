@@ -1,4 +1,4 @@
-Ida Pro python Editor v1.1
+Ida Pro python Editor v2
 
 what it Does:
 Just like the ida one but much nicer and better
@@ -71,7 +71,7 @@ added autotab when code is right.
 api dont work from ida yet so use that outside of ida.
 its ida that are restricted from loading it.
 
-Changelog 2
+Changelog v2
 Totaly new interface.
 
 <pre>
