@@ -27,7 +27,7 @@ PyQt-win-gpl-4.11.4
 extract to specified folder in the archive.
 
 Also you have to a newer sip version to get my PyQt4 build to work, the hexray PyQt4 build is years old.
-
+ANd you need the QsciScintilla
 Sip for PyQt4
 sip 4.16.4
 
