@@ -305,9 +305,5 @@ if __name__ == "__main__":
     MainWindow.show()
     app.exec_()
 
-class Dialog(QDialog):
-    def __init__(self, parent):
-        QDialog.__init__(parent)
-        line_edit = QLineEdit()
 
 
