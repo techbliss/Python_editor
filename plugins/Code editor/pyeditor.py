@@ -1,30 +1,13 @@
-# Created by: Storm Shadow http://www.techbliss.org
-
-# WARNING! All changes made in this file will be lost!
-
+# Created by Storm Shadow www.techbliss.org
 import sys
+import re
 import os
-
+mypath = os.path.dirname(__file__)
+import PyQt4
 from PyQt4 import QtCore, QtGui, Qsci
 from PyQt4.Qsci import QsciScintilla, QsciLexerPython, QsciAPIs, QsciScintillaBase
-from PyQt4.QtGui import QFont, QFontMetrics, QColor
-
-
-
-
-#try to add system varibles YEEE!
-os.path.join(os.sep, 'PATH', 'LIB', 'INLCUDE')
-os.path.join(os.path.expanduser('~'), os.path.expandvars('%IDADIR%'))
-os.path.join(os.path.expanduser('~'), os.path.expandvars('%Path%'))
-os.path.join(os.path.expanduser('~'), os.path.expandvars('%INCLUDE%'))
-
-os.path.dirname(os.path.abspath(__file__))
-os.environ.get("PATH")
-os.path.join(os.environ["PATH"])
-os.environ.get("LIB")
-os.path.join(os.environ["LIB"])
-os.environ.get("INCLUDE")
-os.path.join(os.environ["INCLUDE"])
+from PyQt4.QtGui import *
+from PyQt4.QtCore import *
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -40,17 +23,147 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_vindu(object):
-    def setupUi(self, vindu):
-        self.codebox = Qsci.QsciScintilla(vindu)
-        vindu.setObjectName(_fromUtf8("vindu"))
-        vindu.resize(1093, 734)
-        self.codebox = Qsci.QsciScintilla(vindu)
-        self.codebox.setGeometry(QtCore.QRect(-1, -1, 1101, 661))
+
+import icons.ico
+from icons.ico import *
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName(_fromUtf8("MainWindow"))
+        MainWindow.resize(640, 480)
+        self.vindu = QtGui.QWidget(MainWindow)
+        self.vindu.setStyleSheet(_fromUtf8('notusedasyet'))
+        self.filename = ""
+        self.vindu.setObjectName(_fromUtf8("vindu"))
+        self.verticalLayout = QtGui.QVBoxLayout(self.vindu)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/ico/python.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        MainWindow.setWindowIcon(icon)
+
+
+
+
+        self.verticalLayout.setMargin(0)
+        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.codebox = Qsci.QsciScintilla(self.vindu)
         self.codebox.setToolTip(_fromUtf8(""))
         self.codebox.setWhatsThis(_fromUtf8(""))
+        self.codebox.setAutoFillBackground(False)
+        self.codebox.setFrameShape(QtGui.QFrame.NoFrame)
         self.codebox.setObjectName(_fromUtf8("codebox"))
-        self.curFile = ''
+        self.verticalLayout.addWidget(self.codebox)
+        MainWindow.setCentralWidget(self.vindu)
+        self.toolBar = QtGui.QToolBar(MainWindow)
+        self.toolBar.setAutoFillBackground(False)
+        self.toolBar.setIconSize(QtCore.QSize(32, 32))
+
+        self.toolBar.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
+        self.toolBar.setObjectName(_fromUtf8("toolBar"))
+
+        MainWindow.addToolBar(QtCore.Qt.LeftToolBarArea, self.toolBar)
+        self.toolBar.addSeparator()
+        #first action Newfile
+        self.toolBar.newAction = QtGui.QAction(QtGui.QIcon(":/ico/new.png"),"New",self.toolBar)
+        self.toolBar.newAction.setStatusTip("Clear TextBox or make new document.")
+        self.toolBar.newAction.setShortcut("Ctrl+N")
+        self.toolBar.newAction.triggered.connect(self.newfile)
+        #second Action OpenFile
+        self.toolBar.secondAction = QtGui.QAction(QtGui.QIcon(":/ico/open.png"),"Open",self.toolBar)
+        self.toolBar.secondAction.setStatusTip("Create a new document from scratch.")
+        self.toolBar.secondAction.setShortcut("Ctrl+O")
+        self.toolBar.secondAction.triggered.connect(self.open)
+        # action 3 save file
+        self.toolBar.Action3 = QtGui.QAction(QtGui.QIcon(":/ico/save.png"),"Save",self.toolBar)
+        self.toolBar.Action3.setStatusTip("Save Your File.")
+        self.toolBar.Action3.setShortcut("Ctrl+S")
+        self.toolBar.Action3.triggered.connect(self.savefile)
+        #action 4 run file
+        self.toolBar.Action4 = QtGui.QAction(QtGui.QIcon(":/ico/run32.png"),"Run To Debugger",self.toolBar)
+        self.toolBar.Action4.setStatusTip("Run your file within debugger.")
+        self.toolBar.Action4.setShortcut("Ctrl+E")
+        self.toolBar.Action4.triggered.connect(self.runto)
+         #action 4 run file on windows
+        '''self.toolBar.Action5 = QtGui.QAction(QtGui.QIcon(":/ico/Folder_Open.ico"),"Run On windows",self.toolBar)
+        self.toolBar.Action5.setStatusTip("Run your file within windows.")
+        self.toolBar.Action5.setShortcut("Ctrl+S")
+        self.toolBar.Action5.triggered.connect(self.runtoglobal)
+        '''
+        #action 6 undo
+        self.toolBar.Action6 =  QtGui.QAction(QtGui.QIcon(":/ico/undo.png"),"Redo",self.toolBar)
+        self.toolBar.Action6.setStatusTip("Undo.")
+        self.toolBar.Action6.setShortcut("Ctrl+Z")
+        self.toolBar.Action6.triggered.connect(self.codebox.undo)
+        #action 7 redo
+        self.toolBar.Action7 = QtGui.QAction(QtGui.QIcon(":/ico/redo.png"),"Redo",self.toolBar)
+        self.toolBar.Action7.setStatusTip("Redo.")
+        self.toolBar.Action7.setShortcut("Ctrl+Y")
+        self.toolBar.Action7.triggered.connect(self.codebox.redo)
+        #action8 rerset Folding
+        self.toolBar.Action8 = QtGui.QAction(QtGui.QIcon(":/ico/align-justify.png"),"Reset Folding",self.toolBar)
+        self.toolBar.Action8.setStatusTip("Reset Folding.")
+        self.toolBar.Action8.setShortcut("Ctrl+R")
+        self.toolBar.Action8.triggered.connect(self.nofoldingl)
+        #actions9 CircledTreeFoldStyle
+        self.toolBar.Action9 = QtGui.QAction(QtGui.QIcon(":/ico/bullet.png"),"Circled Tree Folding",self.toolBar)
+        self.toolBar.Action9.setStatusTip("Circled Tree Folding.")
+        self.toolBar.Action9.setShortcut("Ctrl+C")
+        self.toolBar.Action9.triggered.connect(self.Circledfold)
+        #actions10 plainFoldStyle
+        self.toolBar.Action10 = QtGui.QAction(QtGui.QIcon(":/ico/number.png"),"Plain Folding",self.toolBar)
+        self.toolBar.Action10.setStatusTip("Plain Folding")
+        self.toolBar.Action10.setShortcut("Ctrl+P")
+        self.toolBar.Action10.triggered.connect(self.plainfold)
+        #web baby
+        self.toolBar.Action11 = QtGui.QAction(QtGui.QIcon(":/ico/web.png"),"Hex-rays Homepage",self.toolBar)
+        self.toolBar.Action11.setStatusTip("Home of Hex-rays")
+        self.toolBar.Action11.setShortcut("Ctrl+W")
+        self.toolBar.Action11.triggered.connect(self.webopen)
+        #irc
+        self.toolBar.Action12 = QtGui.QAction(QtGui.QIcon(":/ico/find.png"),"Open Ida Pro Python SDK",self.toolBar)
+        self.toolBar.Action12.setStatusTip("Ida Pro Python SDK")
+        self.toolBar.Action12.setShortcut("Ctrl+I")
+        self.toolBar.Action12.triggered.connect(self.sdkopen)
+        #github Python
+        self.toolBar.Action14 = QtGui.QAction(QtGui.QIcon(":/ico/github.png"),"Open git python",self.toolBar)
+        self.toolBar.Action14.setStatusTip("Open git python")
+        self.toolBar.Action14.setShortcut("Ctrl+G")
+        self.toolBar.Action14.triggered.connect(self.gitopen)
+        #auther me :)
+        self.toolBar.Action15 = QtGui.QAction(QtGui.QIcon(":/ico/auth.png"),"Author",self.toolBar)
+        self.toolBar.Action15.setStatusTip("Author")
+        self.toolBar.Action15.setShortcut("Ctrl+B")
+        self.toolBar.Action15.triggered.connect(self.Author)
+
+        #actions
+        self.toolBar.addAction(self.toolBar.newAction)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.secondAction)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action3)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action4)
+        #self.toolBar.addSeparator()
+        #For now global run isent here
+        #self.toolBar.addAction(self.toolBar.Action5)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action6)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action7)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action8)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action9)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action10)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action11)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action12)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action14)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action15)
+
 
         #font
         skrift = QFont()
@@ -59,35 +172,9 @@ class Ui_vindu(object):
         skrift.setPointSize(12)
         self.codebox.setFont(skrift)
 
-        self.runbtr = QtGui.QPushButton(vindu)
-        self.runbtr.setGeometry(QtCore.QRect(790, 680, 94, 34))
-        self.runbtr.setObjectName(_fromUtf8("runbtr"))
-        self.impbtr = QtGui.QPushButton(vindu)
-        self.impbtr.setGeometry(QtCore.QRect(890, 680, 94, 34))
-        self.impbtr.setObjectName(_fromUtf8("impbtr"))
-        self.exbtr = QtGui.QPushButton(vindu)
-        self.exbtr.setGeometry(QtCore.QRect(990, 680, 94, 34))
-        self.exbtr.setObjectName(_fromUtf8("exbtr"))
-
         #python style
         lexer = QsciLexerPython(self.codebox)
-
-        #api
-        '''
-        ida crash when using the api's
-        maybe bug with ida pro
-        for now use it outside ida.
-        if any have good idea how to load so it wont crash please say so.
-        #hack to add right folder.
-        import sys
-        import os
-        #idahome = idaapi.idadir("plugins\\Code editor\\")
-        #sys.path.append('/idahome')
-        #API
-        #os.path.dirname( os.path.realpath( __file__ ) )
-        #API_DIR = idaapi.idadir("plugins\\Code editor")
-        '''
-        #api Working so far
+        #api test not working
         api = Qsci.QsciAPIs(lexer)
         API_FILE = r'idc.api'
         API_FILE2 = r'idaapi.api'
@@ -100,7 +187,6 @@ class Ui_vindu(object):
         self.codebox.setAutoCompletionThreshold(6)
         self.codebox.setAutoCompletionThreshold(8)
         self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsAPIs)
-        self.codebox.setLexer(lexer)
         lexer.setDefaultFont(skrift)
         self.codebox.setLexer(lexer)
         self.codebox.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Consolas')
@@ -108,69 +194,46 @@ class Ui_vindu(object):
         #line numbers
         fontmetrics = QFontMetrics(skrift)
         self.codebox.setMarginsFont(skrift)
-        self.codebox.setMarginWidth(0, fontmetrics.width("00000") + 6)
+        self.codebox.setMarginWidth(0, fontmetrics.width("0000") + 6)
         self.codebox.setTabWidth(4)
-        #self.codebox.setWhitespaceVisibility(True)
-        #self.codebox.setWhitespaceSize(40)
-        #self.codebox.setWhitespaceBackgroundColor(QColor(255, 0, 0, 127))
-        self.codebox.setMarginLineNumbers(0, True)
-        self.codebox.setMarginsBackgroundColor(QColor("#cccccc"))
-
-        #auto line tab when code is right
-        '''
-        def bob():
-        1234print "bob"
-         '''
-        self.codebox.setAutoIndent(True)
 
         #brace
         self.codebox.setBraceMatching(QsciScintilla.SloppyBraceMatch)
         self.codebox.setCaretLineBackgroundColor(QColor("#ffe4e4"))
 
-        #try to load api
-        self.retranslateUi(vindu)
-        QtCore.QObject.connect(self.runbtr, QtCore.SIGNAL(_fromUtf8("clicked()")), self.codebox.selectAll)
-        QtCore.QMetaObject.connectSlotsByName(vindu)
+        #auto line tab =4
+        self.codebox.setAutoIndent(True)
 
-    def retranslateUi(self, vindu):
-        vindu.setWindowTitle(_translate("vindu", "Python Editor", None))
-        self.runbtr.setToolTip(_translate("vindu", "<html><head/><body><p>Run to interpreter</p></body></html>", None))
-        self.runbtr.setText(_translate("vindu", "Run", None))
-        self.impbtr.setToolTip(_translate("vindu", "<html><head/><body><p>Import script into editor.</p></body></html>", None))
-        self.impbtr.setText(_translate("vindu", "Import", None))
-        self.exbtr.setToolTip(_translate("vindu", "<html><head/><body><p>Save your file.</p></body></html>", None))
-        self.exbtr.setText(_translate("vindu", "Export", None))
-        self.runbtr.clicked.connect(self.runto)
-        self.impbtr.clicked.connect(self.openfile)
-        self.exbtr.clicked.connect(self.saveFile)
-        self.curFile = ''
+        #scroolbar
+        self.codebox.SendScintilla(QsciScintilla.SCI_SETHSCROLLBAR, 1)
 
-    def runto(self):
-        g = globals()
-        exec str(self.codebox.text())
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(_translate("MainWindow", "Ida Pro Python Script Editor", None))
+        self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar", None))
 
 
-    def openfile(self, path=None):
-        if not path:
-            path = QtGui.QFileDialog.getOpenFileName(self.impbtr, "Open File",
-                    '', "Python Files (*.py *.pyc *pyw)")
+    #functions fo actions
+    def newfile(self):
+        self.codebox.clear()
 
-        if path:
-            inFile = QtCore.QFile(path)
-            if inFile.open(QtCore.QFile.ReadOnly | QtCore.QFile.Text):
-                text = inFile.readAll()
+    def open(self):
 
-                try:
-                    # Python v3.
-                    text = str(text, encoding='ascii')
-                except TypeError:
-                    # Python v2.
-                    text = str(text)
+        # Get filename and show only .writer files
+        self.filename = QtGui.QFileDialog.getOpenFileName(self.vindu, "Open File",
+                    '', "Python Files (*.py *.pyc *.pyw)")
 
-                self.codebox.setText(text)
+        if self.filename:
+            with open(self.filename,"U") as self.file:
+                print self.file
+                self.codebox.setText(self.file.read())
 
-    def saveFile(self, fileName):
-        fileName = QtGui.QFileDialog.getSaveFileName(self.exbtr, "Save as",
+
+
+    def savefile(self):
+        fileName = QtGui.QFileDialog.getSaveFileName(self.vindu, "Save as",
                     '', "Python Files (*.py *.pyc *.pyw)")
         if fileName:
             self.savetext(fileName)
@@ -182,8 +245,48 @@ class Ui_vindu(object):
         if file.open(QtCore.QIODevice.WriteOnly):
             QtCore.QTextStream(file) << textout
         else:
-            QtGui.QMessageBox.information(self.exbtr, "Unable to open file",
+            QtGui.QMessageBox.information(self.vindu, "Unable to open file",
                     file.errorString())
+
+    def runto(self):
+        exec str(self.codebox.text())
+
+
+
+
+
+    #for now this isent here
+    '''def runtoglobal(self):
+        import subprocess
+        from subprocess import Popen
+        file = self.filename
+        subprocess.Popen(self.filename)
+    '''
+
+    def nofoldingl(self):
+        self.codebox.setFolding(QsciScintilla.NoFoldStyle)
+
+    def Circledfold(self):
+        self.codebox.setFolding(QsciScintilla.CircledTreeFoldStyle)
+
+    def plainfold(self):
+        self.codebox.setFolding(QsciScintilla.PlainFoldStyle)
+
+    def webopen(self):
+        import webbrowser
+        webbrowser.open('https://www.hex-rays.com/')
+
+    def sdkopen(self):
+        import webbrowser
+        webbrowser.open('https://www.hex-rays.com/products/ida/support/idapython_docs/')
+
+    def gitopen(self):
+        import webbrowser
+        webbrowser.open('https://github.com/idapython/src/tree/build-1.7.2')
+
+    def Author(self):
+        import webbrowser
+        webbrowser.open('https://github.com/techbliss')
 
 from PyQt4 import Qsci
 
@@ -192,10 +295,8 @@ if __name__ == "__main__":
     app = QtGui.QApplication.instance()
     if not app:
         app = QtGui.QApplication([])
-    vindu = QtGui.QWidget()
-    ui = Ui_vindu()
-    ui.setupUi(vindu)
-    vindu.show()
-    #ui.codebox.setText(open(sys.argv[0]).read())
+    MainWindow = QtGui.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
     app.exec_()
-

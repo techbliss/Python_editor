@@ -67,6 +67,27 @@ added autotab when code is right.
 api dont work from ida yet so use that outside of ida.
 its ida that are restricted from loading it.
 
+Changelog 2
+Totaly new interface.
+
+<pre>
+1. Hotkeys:
+2.  NewFile:            Ctrl+N
+3.  OpenFile:           Ctrl+O
+4.  SaveFile:           Ctrl+S
+5.  RunScript:          Ctrl+E
+6.  Undo:               Ctrl+Z
+7.  Redo:               Ctrl+Y
+8.  SelectALL:          Ctrl+A
+9.  Paste:              Ctrl+V
+10. ResetFolding:       Ctrl+R
+11. CircleFolding:      Ctrl+C
+12. PlainFolding:       Ctrl+P
+13. X64dbgHome:         Ctrl+W
+14. Irc:                Ctrl+I
+15. X64dbgPythonGit:    Ctrl+G
+16. Author:             Ctrl+B</pre>
+
 
 Tip!
 Use hit hotkey Alt+E twize to load the editor.
