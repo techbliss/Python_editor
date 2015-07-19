@@ -20,7 +20,7 @@ NEW BUILD.
 
 PyQt-win-gpl-4.11.4
 
-https://mega.co.nz/#!TxtTALqa!VgV9IE7QhnvpWUlPakL8DxfjZMu06w-RmFwE4bklZ4I
+[https://mega.co.nz/#!TxtTALqa!VgV9IE7QhnvpWUlPakL8DxfjZMu06w-RmFwE4bklZ4I]
 
 
 extract to specified folder in the archive.
@@ -30,7 +30,7 @@ Also you have to a newer sip version to get my PyQt4 build to work, the hexray P
 Sip for PyQt4
 sip 4.16.4
 
-https://mega.co.nz/#!i81kFQRR!hrg_1MsIJoojrP6c8vfvSWaaqiBbyjcjFhHmuJ43N9U
+[https://mega.co.nz/#!i81kFQRR!hrg_1MsIJoojrP6c8vfvSWaaqiBbyjcjFhHmuJ43N9U]
 
 
 Extract sip archive anywhere, goto root folder, and do.
@@ -40,7 +40,7 @@ name install
 or copy build manually.
 
 if you need help with this.
-Contact me here http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_pyqt5-regular-python-2-7x86.683/
+Contact me here [http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_pyqt5-regular-python-2-7x86.683/]
 
 
 
@@ -48,28 +48,9 @@ Contact me here http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_
 Download plugin.
 extract to Ida Pro plugins folder.
 
-use hotkey Alt+E and find it under File menu.
+use hotkey twice Alt+E and find it under File menu.
 
 
-
-Changelog! v1.1
-
-removed darkness from skin.
-
-Added Api auto code completion  to the Code editor.
-For now apparently it to much info for ida to handle.
-Must be a Bug from hex-rays.
-So if you wanna test it load the editor strait from windows.
-added idaapi api
-added idc api
-
-
-changelog 1.2
-
-added python.api
-added autotab when code is right.
-api dont work from ida yet so use that outside of ida.
-its ida that are restricted from loading it.
 
 Changelog v2
 Totaly new interface.
