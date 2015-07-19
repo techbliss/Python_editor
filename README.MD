@@ -47,6 +47,14 @@ or copy build manually.
 if you need help with this.
 Contact me here http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_pyqt5-regular-python-2-7x86.683/
 
+Runing other Qt apps within the editor
+
+you have to remmeber to remove
+usually in buttom of Qt file
+
+app = QtGui.QApplication(sys.argv)
+and
+sys.exit(app.exec_())
 
 
 
@@ -82,6 +90,9 @@ Totaly new interface.
 
 
 ![v2](https://cloud.githubusercontent.com/assets/3592375/8766467/26a85fe2-2e39-11e5-9c75-a97259a7a7ad.png)
+
+
+
 
 
 
