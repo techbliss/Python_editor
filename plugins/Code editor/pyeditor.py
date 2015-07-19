@@ -296,9 +296,11 @@ from PyQt4 import Qsci
 
 if __name__ == "__main__":
     import sys
+    app = QtGui.QApplication.instance()
+    if not app:
+        app = QtGui.QApplication([])
     MainWindow = QtGui.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-
-
+    app.exec_()

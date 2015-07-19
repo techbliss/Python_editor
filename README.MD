@@ -5,11 +5,16 @@ Just like the ida one but much nicer and better
 Python language.
 Run Scripts within ida.
 
-
+API:
+If you run the app strait in windows there is code recognition.
+api from ida dont works as yet!
 
 todo
 python auto completion  CHECK
-better path recognition FIXED
+better path recognition
+if you
+
+
 now examples script are working.
 
 
