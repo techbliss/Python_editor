@@ -233,11 +233,12 @@ class Ui_MainWindow(object):
 
 
     def savefile(self):
-        self.fileName = QtGui.QFileDialog.getSaveFileName(
+        self.path = QFileInfo(self.filename).path()
+        self.filename = QtGui.QFileDialog.getSaveFileName(
             self.vindu, "Save as", self.path, "Python Files (*.py *.pyc *.pyw)",
             )
-        if self.fileName:
-            self.savetext(self.fileName)
+        if self.filename:
+            self.savetext(self.filename)
 
 
     def savetext(self, fileName):
