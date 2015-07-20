@@ -256,10 +256,6 @@ class Ui_MainWindow(object):
         exec (script, g)
         QtGui.QCloseEvent()
 
-
-
-
-
     #for now this isent here
     '''def runtoglobal(self):
         import subprocess
