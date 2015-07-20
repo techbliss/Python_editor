@@ -169,7 +169,7 @@ class Ui_MainWindow(object):
         skrift = QFont()
         skrift.setFamily('Consolas')
         skrift.setFixedPitch(True)
-        skrift.setPointSize(12)
+        skrift.setPointSize(11)
         self.codebox.setFont(skrift)
 
         #python style
@@ -220,9 +220,11 @@ class Ui_MainWindow(object):
         self.codebox.clear()
 
     def open(self):
-
+        self.path = QFileInfo(self.filename).path()
         # Get filename and show only .writer files
-        self.filename = AskFile(0, "Python Files (*.py *.pyc *.pyw)", "Open File")
+        self.filename = QtGui.QFileDialog.getOpenFileName(
+                   self.vindu, 'Open File', self.path, "Python Files (*.py *.pyc *.pyw)",
+                   '')
 
         if self.filename:
             with open(self.filename,"r") as self.file:
@@ -231,7 +233,9 @@ class Ui_MainWindow(object):
 
 
     def savefile(self):
-        self.fileName = AskFile(1, "Python Files (*.py *.pyc *.pyw)", "Save File")
+        self.fileName = QtGui.QFileDialog.getSaveFileName(
+            self.vindu, "Save as", self.path, "Python Files (*.py *.pyc *.pyw)",
+            )
         if self.fileName:
             self.savetext(self.fileName)
 
