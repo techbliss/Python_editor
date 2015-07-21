@@ -8,7 +8,10 @@ import idc
 from idc import *
 from idaapi import *
 import idautils
-
+import sys
+sys.path.insert(0 , idaapi.idadir("plugins\\Code editor\\icons"))
+import ico
+from ico import *
 class ripeye(idaapi.plugin_t):
     flags = idaapi.PLUGIN_FIX
     comment = "This is a comment"
@@ -23,27 +26,31 @@ class ripeye(idaapi.plugin_t):
         idaapi.msg("Python Editor Is Found GoTo File Menu \n")
         return idaapi.PLUGIN_OK
 
+
     def run(self, arg):
         idaapi.msg("run() called with %d!\n" % arg)
 
     def term(self):
         idaapi.msg("")
 
+
+
     def AddMenuElements(self):
         idaapi.add_menu_item("File/", "Code editor", "Alt-E", 0, self.popeye, ())
+        idaapi.set_menu_item_icon("File/Code editor", idaapi.load_custom_icon(":/ico/engine.png"))
 
 
 
 
     def run(self, arg = 0):
         idaapi.msg("Python Editor Loaded Shortcut Alt+E to Load")
-
         self.AddMenuElements()
 
     def popeye(self):
         g = globals()
         idahome = idaapi.idadir("plugins\\Code editor")
         IDAPython_ExecScript(idahome +  "\\pyeditor.py", g)
+
 
 
 
