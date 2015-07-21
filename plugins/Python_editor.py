@@ -2,12 +2,10 @@
 
 # WARNING! All changes made in this file will be lost!
 
-import re
 import idaapi
 import idc
 from idc import *
 from idaapi import *
-import idautils
 import sys
 sys.path.insert(0 , idaapi.idadir("plugins\\Code editor\\icons"))
 import ico
