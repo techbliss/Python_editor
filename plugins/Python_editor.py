@@ -35,7 +35,7 @@ class ripeye(idaapi.plugin_t):
 
     def AddMenuElements(self):
         idaapi.add_menu_item("File/", "Code editor", "Alt-E", 0, self.popeye, ())
-        idaapi.set_menu_item_icon("File/Code editor", idaapi.load_custom_icon(":/ico/engine.png"))
+        idaapi.set_menu_item_icon("File/Code editor", idaapi.load_custom_icon(":/ico/python.png"))
 
 
 
