@@ -2,13 +2,15 @@
 import sys
 import re
 import os
+import sys
+sys.path.insert(0, os.getcwd()+r'\icons')
 mypath = os.path.dirname(__file__)
 import PyQt4
 from PyQt4 import QtCore, QtGui, Qsci
 from PyQt4.Qsci import QsciScintilla, QsciLexerPython, QsciAPIs, QsciScintillaBase
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-
+import ico
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
