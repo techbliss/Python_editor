@@ -8,8 +8,7 @@ from PyQt4 import QtCore, QtGui, Qsci
 from PyQt4.Qsci import QsciScintilla, QsciLexerPython, QsciAPIs, QsciScintillaBase
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-import icons.ico
-from icons.ico import *
+
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
