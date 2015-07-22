@@ -8,7 +8,8 @@ from PyQt4 import QtCore, QtGui, Qsci
 from PyQt4.Qsci import QsciScintilla, QsciLexerPython, QsciAPIs, QsciScintillaBase
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-
+import icons.ico
+from icons.ico import *
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -172,6 +173,18 @@ class Ui_MainWindow(object):
         #python style
         lexer = QsciLexerPython(self.codebox)
         #api test not working
+        api = Qsci.QsciAPIs(lexer)
+        API_FILE = r'idc.api'
+        API_FILE2 = r'idaapi.api'
+        API_FILE3 = r'python.api'
+        api.load(API_FILE)
+        api.load(API_FILE2)
+        api.load(API_FILE3)
+        api.prepare()
+        self.codebox.setAutoCompletionThreshold(1)
+        self.codebox.setAutoCompletionThreshold(6)
+        self.codebox.setAutoCompletionThreshold(8)
+        self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsAPIs)
         lexer.setDefaultFont(skrift)
         self.codebox.setLexer(lexer)
         self.codebox.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Consolas')
