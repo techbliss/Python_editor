@@ -4,7 +4,6 @@ import re
 import os
 import sys
 sys.path.insert(0, os.getcwd()+r'\icons')
-mypath = os.path.dirname(__file__)
 import PyQt4
 from PyQt4 import QtCore, QtGui, Qsci
 from PyQt4.Qsci import QsciScintilla, QsciLexerPython, QsciAPIs, QsciScintillaBase
@@ -238,18 +237,21 @@ class Ui_MainWindow(object):
                     file.errorString())
 
     def runto(self):
+        self.path = QtCore.QFileInfo(self.filename).path()
         g = globals()
+        os.chdir(str(self.path))
         script = str(self.codebox.text())
-        exec (script, g)
-        QtGui.QCloseEvent()
+        try:
+            exec (script, g)
+            QtGui.QCloseEvent()
 
-    #for now this isent here
-    '''def runtoglobal(self):
-        import subprocess
-        from subprocess import Popen
-        file = self.filename
-        subprocess.Popen(self.filename)
-    '''
+        except ImportError:
+            os.chdir(str(self.path))
+            os.path.join(os.path.expanduser('~'), os.path.expandvars(str(self.path)))
+            sys.path.insert(0, str(self.path))
+            exec (script, g)
+            QtGui.QCloseEvent()
+
 
     def nofoldingl(self):
         self.codebox.setFolding(QsciScintilla.NoFoldStyle)
