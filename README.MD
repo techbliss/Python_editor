@@ -64,10 +64,13 @@ Use hit hotkey Alt+E twize to load the editor.
 
 
 Changelog v3
+```
 APi working
 better path recognition
 apit on/off toggle
 run full python programs.
+```
+
 ```
 ###################################################
  #              Author Storm Shadow                #
