@@ -1,15 +1,61 @@
 # Created by Storm Shadow www.techbliss.org
+
+# Created by Storm Shadow www.techbliss.org
+print "\n" #getting the box fit
+print " ###################################################\n" \
+    " #              Author Storm Shadow                # \n" \
+    " #                   Hotkeys                       # \n" \
+    " #         NewFile:            Ctrl+N              #\n" \
+    " #         OpenFile:           Ctrl+O              #\n" \
+    " #         SaveFile:           Ctrl+S              #\n" \
+    " #         RunScript:          Ctrl+E              #\n" \
+    " #         Undo:               Ctrl+Z              #\n" \
+    " #         Redo:               Ctrl+Y              #\n" \
+    " #         SelectALL:          Ctrl+A              #\n" \
+    " #         Paste:              Ctrl+V              #\n" \
+    " #         ResetFolding:       Ctrl+R              #\n" \
+    " #         CircleFolding:      Ctrl+C              #\n" \
+    " #         PlainFolding:       Ctrl+P              #\n" \
+    " #         HEX-ray Home:       Ctrl+W              #\n" \
+    " #         Ida Pro Python SDK  Ctrl+I              #\n" \
+    " #         IDAPROPythonGit:    Ctrl+G              #\n" \
+    " #         Author:             Ctrl+B              #\n" \
+    " #         Enable Reg:         Alt+E               #\n" \
+    " #         Disable Reg:        Alt+D               #\n" \
+    " ###################################################\n" \
+    " #              IDA PRO python Editor              #\n" \
+    " ###################################################\n"
+
+
+
 import sys
 import re
 import os
 import sys
+
+try:
+    dn = idaapi.idadir("plugins\\Code editor")
+except NameError:
+    dn = os.getcwd()
+sys.path.insert(0, dn)
 sys.path.insert(0, os.getcwd()+r'\icons')
+
 import PyQt4
 from PyQt4 import QtCore, QtGui, Qsci
 from PyQt4.Qsci import QsciScintilla, QsciLexerPython, QsciAPIs, QsciScintillaBase
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
-import ico
+
+try:
+    import ico
+except ImportError:
+    import icons.ico
+
+try:
+    import iconsmore
+except ImportError:
+    import icons.iconsmore
+
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -30,16 +76,13 @@ class Ui_MainWindow(object):
         MainWindow.resize(640, 480)
         self.vindu = QtGui.QWidget(MainWindow)
         self.vindu.setStyleSheet(_fromUtf8('notusedasyet'))
+        MainWindow.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         self.filename = ""
         self.vindu.setObjectName(_fromUtf8("vindu"))
         self.verticalLayout = QtGui.QVBoxLayout(self.vindu)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/ico/python.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         MainWindow.setWindowIcon(icon)
-
-
-
-
         self.verticalLayout.setMargin(0)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
@@ -131,6 +174,18 @@ class Ui_MainWindow(object):
         self.toolBar.Action15.setStatusTip("Author")
         self.toolBar.Action15.setShortcut("Ctrl+B")
         self.toolBar.Action15.triggered.connect(self.Author)
+        #toggle off code regonision
+        self.toolBar.Action16 = QtGui.QAction(QtGui.QIcon(":/ico2/pythonminus.png"),"Disable Code recognition",self.toolBar)
+        self.toolBar.Action16.setStatusTip("Disable Code recognition")
+        self.toolBar.Action16.setShortcut("Alt+D")
+        self.toolBar.Action16.triggered.connect(self.Diablecode)
+        #toogle on
+        self.toolBar.Action17 = QtGui.QAction(QtGui.QIcon(":/ico2/pypluss.png"),"Enable Code recognition",self.toolBar)
+        self.toolBar.Action17.setStatusTip("Enable Code recognition")
+        self.toolBar.Action17.setShortcut("Alt+E")
+        self.toolBar.Action17.triggered.connect(self.Reiablecode)
+
+
 
         #actions
         self.toolBar.addAction(self.toolBar.newAction)
@@ -161,7 +216,10 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.toolBar.Action14)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.toolBar.Action15)
-
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action16)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action17)
 
         #font
         skrift = QFont()
@@ -173,10 +231,24 @@ class Ui_MainWindow(object):
         #python style
         lexer = QsciLexerPython(self.codebox)
         #api test not working
+        api = Qsci.QsciAPIs(lexer)
+        API_FILE = dn+'\\Python.api'
+        API_FILE2 = dn+'\\idc.api'
+        API_FILE3 = dn+'\\idaapi.api'
+        api.load(API_FILE)
+        api.load(API_FILE2)
+        api.load(API_FILE3)
+
+
+
+        api.prepare()
+        self.codebox.setAutoCompletionThreshold(1)
+        self.codebox.setAutoCompletionThreshold(6)
+        self.codebox.setAutoCompletionThreshold(8)
+        self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsAPIs)
         lexer.setDefaultFont(skrift)
         self.codebox.setLexer(lexer)
         self.codebox.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Consolas')
-
         #line numbers
         fontmetrics = QFontMetrics(skrift)
         self.codebox.setMarginsFont(skrift)
@@ -206,7 +278,7 @@ class Ui_MainWindow(object):
         self.codebox.clear()
 
     def open(self):
-        self.path = QFileInfo(self.filename).path()
+        self.path = QtCore.QFileInfo(self.filename).path()
         # Get filename and show only .writer files
         self.filename = QtGui.QFileDialog.getOpenFileName(
                    self.vindu, 'Open File', self.path, "Python Files (*.py *.pyc *.pyw)",
@@ -215,16 +287,20 @@ class Ui_MainWindow(object):
         if self.filename:
             with open(self.filename,"r") as self.file:
                 self.codebox.setText(self.file.read())
+        os.chdir(str(self.path))
 
 
 
     def savefile(self):
-        self.path = QFileInfo(self.filename).path()
+        self.path = QtCore.QFileInfo(self.filename).path()
         self.filename = QtGui.QFileDialog.getSaveFileName(
             self.vindu, "Save as", self.path, "Python Files (*.py *.pyc *.pyw)",
             )
         if self.filename:
             self.savetext(self.filename)
+        os.chdir(str(self.path))
+
+
 
 
     def savetext(self, fileName):
@@ -235,6 +311,7 @@ class Ui_MainWindow(object):
         else:
             QtGui.QMessageBox.information(self.vindu, "Unable to open file",
                     file.errorString())
+        os.chdir(str(self.path))
 
     def runto(self):
         self.path = QtCore.QFileInfo(self.filename).path()
@@ -245,6 +322,7 @@ class Ui_MainWindow(object):
             exec (script, g)
             QtGui.QCloseEvent()
 
+
         except ImportError:
             os.chdir(str(self.path))
             os.path.join(os.path.expanduser('~'), os.path.expandvars(str(self.path)))
@@ -252,6 +330,12 @@ class Ui_MainWindow(object):
             exec (script, g)
             QtGui.QCloseEvent()
 
+
+    def Diablecode(self):
+        self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsNone)
+
+    def Reiablecode(self):
+        self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsAPIs)
 
     def nofoldingl(self):
         self.codebox.setFolding(QsciScintilla.NoFoldStyle)
@@ -284,11 +368,24 @@ from PyQt4 import Qsci
 
 if __name__ == "__main__":
     import sys
-    app = QtGui.QApplication.instance()
+    app = QtGui.QApplication.instance() # We add this so we can use editor outside Ida
     if not app:
         app = QtGui.QApplication([])
     MainWindow = QtGui.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    app.exec_()
+    if app.exec_():
+        os.chdir(dn)
+    print " ###################################################\n" \
+         " #                                                 # \n" \
+         " #                                                 #\n" \
+         " #              Author Storm Shadow                #\n" \
+         " #                                                 #\n" \
+         " #                                                 #\n" \
+         " ###################################################\n" \
+         " #              IDa Pro python Editor              #\n" \
+        " ###################################################\n"
+
+
+

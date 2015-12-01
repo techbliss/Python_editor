@@ -16,12 +16,12 @@ class ripeye(idaapi.plugin_t):
 
     help = "Python Editor"
     wanted_name = "Python Editor"
-    wanted_hotkey = ""
+    wanted_hotkey = "ALT-E"
 
 
 
     def init(self):
-        idaapi.msg("Python Editor Is Found GoTo File Menu \n")
+        idaapi.msg("Python Editor Is Found Use Alt+E to load to menu \n")
         return idaapi.PLUGIN_OK
 
 
@@ -41,7 +41,7 @@ class ripeye(idaapi.plugin_t):
 
 
     def run(self, arg = 0):
-        idaapi.msg("Python Editor Loaded Shortcut Alt+E to Load")
+        idaapi.msg("Python Editor Loaded to menu use Alt+E once more")
         self.AddMenuElements()
 
     def popeye(self):

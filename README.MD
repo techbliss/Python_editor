@@ -1,4 +1,4 @@
-Ida Pro python Editor v2
+Ida Pro python Editor v3
 
 
 what it Does:
@@ -12,42 +12,35 @@ API:
 If you run the app strait in windows there is code recognition.
 api from ida dont works as yet!
 
-todo
 
-python auto completion  CHECK
-better path recognition
+todo
+Profiler maybe
 
 
 
 
 I had to rebuild PyQt4 for ida, so it had all the stuff i needed.
-
-NEW BUILD.
-
-```PyQt-win-gpl-4.11.4
-
-https://mega.co.nz/#!TxtTALqa!VgV9IE7QhnvpWUlPakL8DxfjZMu06w-RmFwE4bklZ4I
+Either download complete package here
+```
+http://www.techbliss.org/threads/pyqt-win-gpl-4-11-qt-4-4-8-7-for-ida-pro-total-package-installer-by-storm-shadow.768/
 ```
 
-extract to specified folder in the archive.
+build yourself
 
-Also you have to a newer sip version to get my PyQt4 build to work, the hexray PyQt4 build is years old.
-And you need the QsciScintilla
 ```
-Sip for PyQt4
-sip 4.16.4
-https://mega.co.nz/#!i81kFQRR!hrg_1MsIJoojrP6c8vfvSWaaqiBbyjcjFhHmuJ43N9U
+https://github.com/techbliss/Ida_Pro_Ultimate_Qt_Build_Guide
 ```
 
-Extract sip archive anywhere, goto root folder, and do.
-```
-nnmake install
-```
+or copy supplied Qsci.pyd in
 
-or copy build manually.
+```
+C:\Python27\Lib\site-packages\PyQt4
+```
 
 if you need help with this.
 Contact me here http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_pyqt5-regular-python-2-7x86.683/
+
+
 
 Runing other Qt apps within the editor
 
@@ -55,39 +48,54 @@ you have to remmeber to remove
 usually in buttom of Qt file
 ```
 app = QtGui.QApplication(sys.argv)
+```
 and
+```
 sys.exit(app.exec_())
 ```
 
 
 Download plugin.
-extract to Ida Pro plugins folder.
+extract to Ida Pro plugins folder.So its idafolder\plugins\codeeditor
+or it wont work
 
 Tip!
 Use hit hotkey Alt+E twize to load the editor.
 
 
-Changelog v2
-Totaly new interface.
+Changelog v3
+APi working
+better path recognition
+apit on/off toggle
+run full python programs.
+```
+###################################################
+ #              Author Storm Shadow                #
+ #                   Hotkeys                       #
+ #         NewFile:            Ctrl+N              #
+ #         OpenFile:           Ctrl+O              #
+ #         SaveFile:           Ctrl+S              #
+ #         RunScript:          Ctrl+E              #
+ #         Undo:               Ctrl+Z              #
+ #         Redo:               Ctrl+Y              #
+ #         SelectALL:          Ctrl+A              #
+ #         Paste:              Ctrl+V              #
+ #         ResetFolding:       Ctrl+R              #
+ #         CircleFolding:      Ctrl+C              #
+ #         PlainFolding:       Ctrl+P              #
+ #         HEX-ray Home:       Ctrl+W              #
+ #         Ida Pro Python SDK  Ctrl+I              #
+ #         IDAPROPythonGit:    Ctrl+G              #
+ #         Author:             Ctrl+B              #
+ #         Enable Reg:         Alt+E               #
+ #         Disable Reg:        Alt+D               #
+ ###################################################
+ #              IDA PRO python Editor              #
+ ###################################################
 
 ```
-1. Hotkeys:
-2.  NewFile:            Ctrl+N
-3.  OpenFile:           Ctrl+O
-4.  SaveFile:           Ctrl+S
-5.  RunScript:          Ctrl+E
-6.  Undo:               Ctrl+Z
-7.  Redo:               Ctrl+Y
-8.  SelectALL:          Ctrl+A
-9.  Paste:              Ctrl+V
-10. ResetFolding:       Ctrl+R
-11. CircleFolding:      Ctrl+C
-12. PlainFolding:       Ctrl+P
-13. Hex-ray Home:       Ctrl+W
-14. Python API:         Ctrl+I
-15. Open git python:    Ctrl+G
-16. Author:             Ctrl+B
-```
+
+
 
 
 
