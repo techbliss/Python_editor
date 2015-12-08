@@ -180,9 +180,9 @@ class Ui_MainWindow(object):
         self.toolBar.Action17.setShortcut("Alt+E")
         self.toolBar.Action17.triggered.connect(self.Reiablecode)
         #fontbox
-        self.toolBar.Action18 = QtGui.QAction(QtGui.QIcon(":/ico2/pypluss.png"),"Enable Code recognition",self.toolBar)
-        self.toolBar.Action18.triggered.connect(self.font_choice)
-        #self.toolBar.Action18 = QtGui.QFontDialog.getFont()
+       # self.toolBar.Action18 = QtGui.QAction(QtGui.QIcon(":/ico2/pypluss.png"),"Enable Code recognition",self.toolBar)
+       # self.toolBar.Action18.triggered.connect(self.font_choice)
+    #self.toolBar.Action18 = QtGui.QFontDialog.getFont()
       # elf.toolBar.Action18.triggered.connect(self.font_choice)
         # Minimum number of chars displayed
 
@@ -223,8 +223,8 @@ class Ui_MainWindow(object):
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.toolBar.Action17)
         self.toolBar.addSeparator()
-        self.toolBar.addAction(self.toolBar.Action18)
-        self.toolBar.addSeparator()
+#        self.toolBar.addAction(self.toolBar.Action18)
+ #       self.toolBar.addSeparator()
 
 
 
@@ -272,7 +272,7 @@ class Ui_MainWindow(object):
         self.codebox.setAutoIndent(True)
 
 
-        #self.codebox.setupViewport(QColor("#f00d0d"))
+
         #scroolbar
         self.codebox.SendScintilla(QsciScintilla.SCI_SETHSCROLLBAR, 1)
 
@@ -282,14 +282,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Ida Pro Python Script Editor", None))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar", None))
-
-    def font_choice(self):
-        font, valid = QtGui.QFontDialog.getFont()
-        if valid:
-            self.codebox.setFont(font)
-            bb = self.codebox.fontChange()
-            self.codebox.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, bb())
-            #self.codebox.update(self.vindu)
 
     def newfile(self):
         self.codebox.clear()
@@ -333,9 +325,6 @@ class Ui_MainWindow(object):
         if self.filename:
             self.savetext(self.filename)
         os.chdir(str(self.path))
-
-
-
 
     def savetext(self, fileName):
         textout = self.codebox.text()
