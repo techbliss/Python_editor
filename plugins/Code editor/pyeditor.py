@@ -26,10 +26,6 @@ print " ###################################################\n" \
     " #              IDA PRO python Editor              #\n" \
     " ###################################################\n"
 
-
-
-import sys
-import re
 import os
 import sys
 
@@ -40,11 +36,10 @@ except NameError:
 sys.path.insert(0, dn)
 sys.path.insert(0, os.getcwd()+r'\icons')
 
-import PyQt4
-from PyQt4 import QtCore, QtGui, Qsci
-from PyQt4.Qsci import QsciScintilla, QsciLexerPython, QsciAPIs, QsciScintillaBase
+from PyQt4 import QtCore, QtGui
+from PyQt4.Qsci import QsciScintilla, QsciLexerPython
 from PyQt4.QtGui import *
-from PyQt4.QtCore import *
+from PyQt4.QtCore import QTextStream
 
 try:
     import ico
@@ -76,7 +71,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(640, 480)
         self.vindu = QtGui.QWidget(MainWindow)
         self.vindu.setStyleSheet(_fromUtf8('notusedasyet'))
-        MainWindow.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+        #MainWindow.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         self.filename = ""
         self.vindu.setObjectName(_fromUtf8("vindu"))
         self.verticalLayout = QtGui.QVBoxLayout(self.vindu)
@@ -184,6 +179,13 @@ class Ui_MainWindow(object):
         self.toolBar.Action17.setStatusTip("Enable Code recognition")
         self.toolBar.Action17.setShortcut("Alt+E")
         self.toolBar.Action17.triggered.connect(self.Reiablecode)
+        #fontbox
+        self.toolBar.Action18 = QtGui.QAction(QtGui.QIcon(":/ico2/pypluss.png"),"Enable Code recognition",self.toolBar)
+        self.toolBar.Action18.triggered.connect(self.font_choice)
+        #self.toolBar.Action18 = QtGui.QFontDialog.getFont()
+      # elf.toolBar.Action18.triggered.connect(self.font_choice)
+        # Minimum number of chars displayed
+
 
 
 
@@ -220,6 +222,11 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.toolBar.Action16)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.toolBar.Action17)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action18)
+        self.toolBar.addSeparator()
+
+
 
         #font
         skrift = QFont()
@@ -230,6 +237,7 @@ class Ui_MainWindow(object):
 
         #python style
         lexer = QsciLexerPython(self.codebox)
+        lexer.setEolFill(True)
         #api test not working
         api = Qsci.QsciAPIs(lexer)
         API_FILE = dn+'\\Python.api'
@@ -242,13 +250,14 @@ class Ui_MainWindow(object):
 
 
         api.prepare()
-        self.codebox.setAutoCompletionThreshold(1)
+        self.codebox.setAutoCompletionThreshold(0)
         self.codebox.setAutoCompletionThreshold(6)
         self.codebox.setAutoCompletionThreshold(8)
         self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsAPIs)
         lexer.setDefaultFont(skrift)
         self.codebox.setLexer(lexer)
         self.codebox.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Consolas')
+
         #line numbers
         fontmetrics = QFontMetrics(skrift)
         self.codebox.setMarginsFont(skrift)
@@ -257,11 +266,13 @@ class Ui_MainWindow(object):
 
         #brace
         self.codebox.setBraceMatching(QsciScintilla.SloppyBraceMatch)
-        self.codebox.setCaretLineBackgroundColor(QColor("#ffe4e4"))
+
 
         #auto line tab =4
         self.codebox.setAutoIndent(True)
 
+
+        #self.codebox.setupViewport(QColor("#f00d0d"))
         #scroolbar
         self.codebox.SendScintilla(QsciScintilla.SCI_SETHSCROLLBAR, 1)
 
@@ -272,8 +283,14 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Ida Pro Python Script Editor", None))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar", None))
 
+    def font_choice(self):
+        font, valid = QtGui.QFontDialog.getFont()
+        if valid:
+            self.codebox.setFont(font)
+            bb = self.codebox.fontChange()
+            self.codebox.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, bb())
+            #self.codebox.update(self.vindu)
 
-    #functions fo actions
     def newfile(self):
         self.codebox.clear()
 
@@ -290,6 +307,23 @@ class Ui_MainWindow(object):
         os.chdir(str(self.path))
 
 
+    def fontFamily(self,font):
+        self.text.setCurrentFont(font)
+
+    def fontSize(self, fontsize):
+            self.text.setFontPointSize(int(fontsize))
+
+    def wheelEvent(self, event):
+        factor = pow(1.2, event.delta() / 240.0)
+        self.codebox.scale(factor, factor)
+        print "zooming"
+        event.accept()
+
+    def fontFamily(self,font):
+        self.codebox.text.setCurrentFont(font)
+
+    def fontSize(self, fontsize):
+        self.codebox.text.setFontPointSize(int(fontsize))
 
     def savefile(self):
         self.path = QtCore.QFileInfo(self.filename).path()
@@ -329,6 +363,14 @@ class Ui_MainWindow(object):
             sys.path.insert(0, str(self.path))
             exec (script, g)
             QtGui.QCloseEvent()
+
+            if TypeError (QTextStream):
+                g = globals()
+                os.chdir(str(self.path))
+                os.path.join(os.path.expanduser('~'), os.path.expandvars(str(self.path)))
+                sys.path.insert(0, str(self.path))
+                exec int(script)
+                QtGui.QCloseEvent()
 
 
     def Diablecode(self):
