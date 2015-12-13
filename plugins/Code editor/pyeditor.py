@@ -339,9 +339,13 @@ class Ui_MainWindow(object):
         os.chdir(str(self.path))
 
     def runto(self):
-        self.path = QtCore.QFileInfo(self.filename).path()
+        try:
+            self.path = QtCore.QFileInfo(self.filename).path()
+        except AttributeError:
+            pass
         g = globals()
         os.chdir(str(self.path))
+        os.path.join(os.path.expanduser('~'), os.path.expandvars(str(self.path)))
         script = str(self.codebox.text())
         try:
             exec (script, g)
@@ -419,5 +423,3 @@ if __name__ == "__main__":
     MainWindow.resize(1000, 600)
     if app.exec_():
         os.chdir(dn)
-
-
