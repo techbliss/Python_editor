@@ -22,6 +22,9 @@ print " ###################################################\n" \
     " #         Author:             Ctrl+B              #\n" \
     " #         Enable Reg:         Alt+E               #\n" \
     " #         Disable Reg:        Alt+D               #\n" \
+    " #         Zoom in             Ctrl+Shift+ +       #\n" \
+    " #         Zoom Out            Ctrl+Shift+ -       #\n" \
+    " #         Profile Code        Ctrl+Shift+ E       #\n" \
     " ###################################################\n" \
     " #              IDA PRO python Editor              #\n" \
     " ###################################################\n"
@@ -40,6 +43,7 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.Qsci import QsciScintilla, QsciLexerPython
 from PyQt4.QtGui import *
 from PyQt4.QtCore import QTextStream
+from PyQt4.QtCore import qDebug
 
 try:
     import ico
@@ -50,6 +54,11 @@ try:
     import iconsmore
 except ImportError:
     import icons.iconsmore
+
+try:
+    import icons3
+except ImportError:
+    import icons.icons3
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -92,10 +101,8 @@ class Ui_MainWindow(object):
         self.toolBar = QtGui.QToolBar(MainWindow)
         self.toolBar.setAutoFillBackground(False)
         self.toolBar.setIconSize(QtCore.QSize(32, 32))
-
         self.toolBar.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
         self.toolBar.setObjectName(_fromUtf8("toolBar"))
-
         MainWindow.addToolBar(QtCore.Qt.LeftToolBarArea, self.toolBar)
         self.toolBar.addSeparator()
         #first action Newfile
@@ -118,12 +125,6 @@ class Ui_MainWindow(object):
         self.toolBar.Action4.setStatusTip("Run your file within debugger.")
         self.toolBar.Action4.setShortcut("Ctrl+E")
         self.toolBar.Action4.triggered.connect(self.runto)
-         #action 4 run file on windows
-        '''self.toolBar.Action5 = QtGui.QAction(QtGui.QIcon(":/ico/Folder_Open.ico"),"Run On windows",self.toolBar)
-        self.toolBar.Action5.setStatusTip("Run your file within windows.")
-        self.toolBar.Action5.setShortcut("Ctrl+S")
-        self.toolBar.Action5.triggered.connect(self.runtoglobal)
-        '''
         #action 6 undo
         self.toolBar.Action6 =  QtGui.QAction(QtGui.QIcon(":/ico/undo.png"),"Redo",self.toolBar)
         self.toolBar.Action6.setStatusTip("Undo.")
@@ -155,7 +156,7 @@ class Ui_MainWindow(object):
         self.toolBar.Action11.setShortcut("Ctrl+W")
         self.toolBar.Action11.triggered.connect(self.webopen)
         #irc
-        self.toolBar.Action12 = QtGui.QAction(QtGui.QIcon(":/ico/find.png"),"Open Ida Pro Python SDK",self.toolBar)
+        self.toolBar.Action12 = QtGui.QAction(QtGui.QIcon(":/ico3/settings.png"),"Open Ida Pro Python SDK",self.toolBar)
         self.toolBar.Action12.setStatusTip("Ida Pro Python SDK")
         self.toolBar.Action12.setShortcut("Ctrl+I")
         self.toolBar.Action12.triggered.connect(self.sdkopen)
@@ -179,15 +180,21 @@ class Ui_MainWindow(object):
         self.toolBar.Action17.setStatusTip("Enable Code recognition")
         self.toolBar.Action17.setShortcut("Alt+E")
         self.toolBar.Action17.triggered.connect(self.Reiablecode)
-        #fontbox
-       # self.toolBar.Action18 = QtGui.QAction(QtGui.QIcon(":/ico2/pypluss.png"),"Enable Code recognition",self.toolBar)
-       # self.toolBar.Action18.triggered.connect(self.font_choice)
-    #self.toolBar.Action18 = QtGui.QFontDialog.getFont()
-      # elf.toolBar.Action18.triggered.connect(self.font_choice)
-        # Minimum number of chars displayed
+        # zoom in
+        self.toolBar.Action18 = QtGui.QAction(QtGui.QIcon(":/ico3/in.png"),"Zoom In",self.toolBar)
+        self.toolBar.Action18.setStatusTip("Zoom In")
+        self.toolBar.Action18.setShortcut("CTRL+SHIFT++")
+        self.toolBar.Action18.triggered.connect(self.udder)
+        #zoom out
+        self.toolBar.Action19 = QtGui.QAction(QtGui.QIcon(":/ico3/out.png"),"Zoom Out",self.toolBar)
+        self.toolBar.Action19.setStatusTip("Zoom Out")
+        self.toolBar.Action19.setShortcut("CTRL+SHIFT+-")
+        self.toolBar.Action19.triggered.connect(self.odder)
 
-
-
+        self.toolBar.Action20 = QtGui.QAction(QtGui.QIcon(":/ico3/10.png"),"Profile Code",self.toolBar)
+        self.toolBar.Action20.setStatusTip("Profile Code")
+        self.toolBar.Action20.setShortcut("CTRL+SHIFT+E")
+        self.toolBar.Action20.triggered.connect(self.runtoprob)
 
         #actions
         self.toolBar.addAction(self.toolBar.newAction)
@@ -197,9 +204,6 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.toolBar.Action3)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.toolBar.Action4)
-        #self.toolBar.addSeparator()
-        #For now global run isent here
-        #self.toolBar.addAction(self.toolBar.Action5)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.toolBar.Action6)
         self.toolBar.addSeparator()
@@ -223,10 +227,11 @@ class Ui_MainWindow(object):
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.toolBar.Action17)
         self.toolBar.addSeparator()
-#        self.toolBar.addAction(self.toolBar.Action18)
- #       self.toolBar.addSeparator()
-
-
+        self.toolBar.addAction(self.toolBar.Action18)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action19)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action20)
 
         #font
         skrift = QFont()
@@ -247,8 +252,6 @@ class Ui_MainWindow(object):
         api.load(API_FILE2)
         api.load(API_FILE3)
 
-
-
         api.prepare()
         self.codebox.setAutoCompletionThreshold(0)
         self.codebox.setAutoCompletionThreshold(6)
@@ -267,11 +270,8 @@ class Ui_MainWindow(object):
         #brace
         self.codebox.setBraceMatching(QsciScintilla.SloppyBraceMatch)
 
-
         #auto line tab =4
         self.codebox.setAutoIndent(True)
-
-
 
         #scroolbar
         self.codebox.SendScintilla(QsciScintilla.SCI_SETHSCROLLBAR, 1)
@@ -282,6 +282,13 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Ida Pro Python Script Editor", None))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar", None))
+
+
+    def udder(self):
+        self.codebox.zoomIn()
+
+    def odder(self):
+        self.codebox.zoomOut()
 
     def newfile(self):
         self.codebox.clear()
@@ -305,11 +312,6 @@ class Ui_MainWindow(object):
     def fontSize(self, fontsize):
             self.text.setFontPointSize(int(fontsize))
 
-    def wheelEvent(self, event):
-        factor = pow(1.2, event.delta() / 240.0)
-        self.codebox.scale(factor, factor)
-        print "zooming"
-        event.accept()
 
     def fontFamily(self,font):
         self.codebox.text.setCurrentFont(font)
@@ -361,6 +363,14 @@ class Ui_MainWindow(object):
                 exec int(script)
                 QtGui.QCloseEvent()
 
+    def runtoprob(self):
+        self.path = QtCore.QFileInfo(self.filename).path()
+        g = globals()
+        os.chdir(str(self.path))
+        script = str(self.codebox.text())
+        import cProfile
+        cProfile.run(script)
+
 
     def Diablecode(self):
         self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsNone)
@@ -406,17 +416,8 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    MainWindow.resize(1000, 600)
     if app.exec_():
         os.chdir(dn)
-    print " ###################################################\n" \
-         " #                                                 # \n" \
-         " #                                                 #\n" \
-         " #              Author Storm Shadow                #\n" \
-         " #                                                 #\n" \
-         " #                                                 #\n" \
-         " ###################################################\n" \
-         " #              IDa Pro python Editor              #\n" \
-        " ###################################################\n"
-
 
 
