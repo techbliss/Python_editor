@@ -306,6 +306,7 @@ class Ui_MainWindow(object):
         os.chdir(str(self.path))
 
 
+
     def fontFamily(self,font):
         self.text.setCurrentFont(font)
 
