@@ -74,6 +74,10 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
+
+
+QSound.play("C:\Users\Storm Shadow\PycharmProjects\crackme\music.wav")
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
@@ -82,6 +86,7 @@ class Ui_MainWindow(object):
         self.vindu.setStyleSheet(_fromUtf8('notusedasyet'))
         #MainWindow.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         self.filename = ""
+        self.vindu.closeEvent = self.closeEvent
         self.vindu.setObjectName(_fromUtf8("vindu"))
         self.verticalLayout = QtGui.QVBoxLayout(self.vindu)
         icon = QtGui.QIcon()
@@ -150,6 +155,11 @@ class Ui_MainWindow(object):
         self.toolBar.Action10.setStatusTip("Plain Folding")
         self.toolBar.Action10.setShortcut("Ctrl+P")
         self.toolBar.Action10.triggered.connect(self.plainfold)
+        # fonts
+        self.toolBar.Action21 = QtGui.QAction(QtGui.QIcon(":/ico/number.png"), "Fonts", self.toolBar)
+        self.toolBar.Action21.setStatusTip("Fonts")
+        self.toolBar.Action21.setShortcut("Ctrl+F")
+        self.toolBar.Action21.triggered.connect(self.font_choice)
         #web baby
         self.toolBar.Action11 = QtGui.QAction(QtGui.QIcon(":/ico/web.png"),"Hex-rays Homepage",self.toolBar)
         self.toolBar.Action11.setStatusTip("Home of Hex-rays")
@@ -215,6 +225,9 @@ class Ui_MainWindow(object):
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.toolBar.Action10)
         self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action21)
+        self.toolBar.addSeparator()
+        self.toolBar.addSeparator()
         self.toolBar.addAction(self.toolBar.Action11)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.toolBar.Action12)
@@ -234,17 +247,18 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.toolBar.Action20)
 
         #font
-        skrift = QFont()
-        skrift.setFamily('Consolas')
-        skrift.setFixedPitch(True)
-        skrift.setPointSize(11)
-        self.codebox.setFont(skrift)
+        self.skrift = QFont()
+        self.skrift.setFamily('Consolas')
+        self.skrift.setFixedPitch(True)
+        self.skrift.setPointSize(12)
+        self.codebox.setFont(self.skrift)
 
         #python style
-        lexer = QsciLexerPython(self.codebox)
-        lexer.setEolFill(True)
+        self.lexer = QsciLexerPython(self.codebox)
+        self.lexer.setFont(self.skrift)
+        self.lexer.setEolFill(True)
         #api test not working
-        api = Qsci.QsciAPIs(lexer)
+        api = Qsci.QsciAPIs(self.lexer)
         API_FILE = dn+'\\Python.api'
         API_FILE2 = dn+'\\idc.api'
         API_FILE3 = dn+'\\idaapi.api'
@@ -257,13 +271,13 @@ class Ui_MainWindow(object):
         self.codebox.setAutoCompletionThreshold(6)
         self.codebox.setAutoCompletionThreshold(8)
         self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsAPIs)
-        lexer.setDefaultFont(skrift)
-        self.codebox.setLexer(lexer)
+        self.lexer.setDefaultFont(self.skrift)
+        self.codebox.setLexer(self.lexer)
         self.codebox.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Consolas')
 
         #line numbers
-        fontmetrics = QFontMetrics(skrift)
-        self.codebox.setMarginsFont(skrift)
+        fontmetrics = QFontMetrics(self.skrift)
+        self.codebox.setMarginsFont(self.skrift)
         self.codebox.setMarginWidth(0, fontmetrics.width("0000") + 6)
         self.codebox.setTabWidth(4)
 
@@ -278,10 +292,11 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+        self.lbl = self.codebox
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Ida Pro Python Script Editor", None))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar", None))
+
 
 
     def udder(self):
@@ -413,6 +428,22 @@ class Ui_MainWindow(object):
         webbrowser.open('https://github.com/techbliss')
 
 
+    def closeEvent(self, event):
+        print("event")
+        reply = QtGui.QMessageBox.question(self, 'Message',
+                                        "Are you sure to quit?", QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+
+        if reply == QtGui.QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+
+
+    def font_choice(self):
+        self.lbl = self.lexer
+        font, ok = QtGui.QFontDialog.getFont()
+        if ok:
+            self.lbl.setFont(font)
 
 from PyQt4 import Qsci
 
