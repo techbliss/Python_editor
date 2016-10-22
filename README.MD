@@ -1,24 +1,20 @@
-Ida Pro python Editor v3
+**Ida Pro python Editor v4**
+[![](https://img.shields.io/badge/Twitter--blue.svg?maxAge=2592000)](https://twitter.com/zadow28) ![Python version](https://img.shields.io/badge/python-2.7-brightgreen.svg?maxAge=2592000) ![Python version](https://img.shields.io/badge/Ida-plugin-red.svg?maxAge=2592000)
 
-
-what it Does:
+**what it Does:**
 I always hated the Old Run script command, so i set up making my own editor for ida pro.
 Just like the ida one but much nicer and better
 Python language.
 Run Scripts within ida.
 now examples script are working.
 
-API:
+**API:**
 If you run the app strait in windows there is code recognition.
 api from ida dont works as yet!
 
 
-todo
-Profiler maybe
-
-
-
-
+**todo**
+Debugger
 I had to rebuild PyQt4 for ida, so it had all the stuff i needed.
 Either download complete package here
 ```
@@ -38,7 +34,7 @@ C:\Python27\Lib\site-packages\PyQt4
 ```
 
 if you need help with this.
-Contact me here http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_pyqt5-regular-python-2-7x86.683/
+Contact me here [Techbliss](http://www.techbliss.org/threads/ida-pro-prebuild-pyqt4-ida-pro_pyqt5-regular-python-2-7x86.683/)
 
 
 
@@ -63,7 +59,15 @@ Tip!
 Use hit hotkey Alt+E twize to load the editor.
 
 
-Changelog v3
+**Changelog v4**
+```
+Clean up code
+Zoom -/+
+Font box
+Getting redy for debugger feature
+```
+
+**Changelog v3**
 ```
 APi working
 better path recognition
@@ -72,9 +76,9 @@ run full python programs.
 ```
 
 ```
-###################################################
- #              Author Storm Shadow                #
- #                   Hotkeys                       #
+ ###################################################
+ #              Author Storm Shadow                # 
+ #                   Hotkeys                       # 
  #         NewFile:            Ctrl+N              #
  #         OpenFile:           Ctrl+O              #
  #         SaveFile:           Ctrl+S              #
@@ -83,6 +87,7 @@ run full python programs.
  #         Redo:               Ctrl+Y              #
  #         SelectALL:          Ctrl+A              #
  #         Paste:              Ctrl+V              #
+ #         Font:               Ctrl+F              #
  #         ResetFolding:       Ctrl+R              #
  #         CircleFolding:      Ctrl+C              #
  #         PlainFolding:       Ctrl+P              #
@@ -92,10 +97,12 @@ run full python programs.
  #         Author:             Ctrl+B              #
  #         Enable Reg:         Alt+E               #
  #         Disable Reg:        Alt+D               #
+ #         Zoom in             Ctrl+Shift+ +       #
+ #         Zoom Out            Ctrl+Shift+ -       #
+ #         Profile Code        Ctrl+Shift+ E       #
  ###################################################
  #              IDA PRO python Editor              #
  ###################################################
-
 ```
 
 

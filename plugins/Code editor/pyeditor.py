@@ -13,6 +13,7 @@ print " ###################################################\n" \
     " #         Redo:               Ctrl+Y              #\n" \
     " #         SelectALL:          Ctrl+A              #\n" \
     " #         Paste:              Ctrl+V              #\n" \
+    " #         Font:               Ctrl+F              #\n" \
     " #         ResetFolding:       Ctrl+R              #\n" \
     " #         CircleFolding:      Ctrl+C              #\n" \
     " #         PlainFolding:       Ctrl+P              #\n" \
@@ -61,6 +62,11 @@ except ImportError:
     import icons.icons3
 
 try:
+    import iconf
+except ImportError:
+    import icons.iconf
+
+try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
     def _fromUtf8(s):
@@ -74,11 +80,8 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-
-
-QSound.play("C:\Users\Storm Shadow\PycharmProjects\crackme\music.wav")
-
 class Ui_MainWindow(object):
+    ARROW_MARKER_NUM = 8
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(640, 480)
@@ -110,6 +113,11 @@ class Ui_MainWindow(object):
         self.toolBar.setObjectName(_fromUtf8("toolBar"))
         MainWindow.addToolBar(QtCore.Qt.LeftToolBarArea, self.toolBar)
         self.toolBar.addSeparator()
+        #getting ready for debugger
+        self.codebox.setMarginSensitivity(1, True)
+        self.codebox.connect(self.codebox, QtCore.SIGNAL('marginClicked(int, int, Qt::KeyboardModifiers)'), self.on_margin_clicked)
+        self.codebox.markerDefine(QsciScintilla.FullRectangle, self.ARROW_MARKER_NUM)
+        self.codebox.setMarkerBackgroundColor(QColor("#ee1111"), self.ARROW_MARKER_NUM)
         #first action Newfile
         self.toolBar.newAction = QtGui.QAction(QtGui.QIcon(":/ico/new.png"),"New",self.toolBar)
         self.toolBar.newAction.setStatusTip("Clear TextBox or make new document.")
@@ -156,7 +164,7 @@ class Ui_MainWindow(object):
         self.toolBar.Action10.setShortcut("Ctrl+P")
         self.toolBar.Action10.triggered.connect(self.plainfold)
         # fonts
-        self.toolBar.Action21 = QtGui.QAction(QtGui.QIcon(":/ico/number.png"), "Fonts", self.toolBar)
+        self.toolBar.Action21 = QtGui.QAction(QtGui.QIcon(":/ico4/font.png"), "Fonts", self.toolBar)
         self.toolBar.Action21.setStatusTip("Fonts")
         self.toolBar.Action21.setShortcut("Ctrl+F")
         self.toolBar.Action21.triggered.connect(self.font_choice)
@@ -298,7 +306,6 @@ class Ui_MainWindow(object):
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar", None))
 
 
-
     def udder(self):
         self.codebox.zoomIn()
 
@@ -431,7 +438,7 @@ class Ui_MainWindow(object):
     def closeEvent(self, event):
         print("event")
         reply = QtGui.QMessageBox.question(self, 'Message',
-                                        "Are you sure to quit?", QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+                                           "Are you sure to quit?", QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
 
         if reply == QtGui.QMessageBox.Yes:
             event.accept()
@@ -444,6 +451,15 @@ class Ui_MainWindow(object):
         font, ok = QtGui.QFontDialog.getFont()
         if ok:
             self.lbl.setFont(font)
+
+
+    def on_margin_clicked(self, nmargin, nline, modifiers):
+        # Toggle marker for the line the margin was clicked on
+        if self.codebox.markersAtLine(nline) != 0:
+            self.codebox.markerDelete(nline, self.ARROW_MARKER_NUM)
+        else:
+            self.codebox.markerAdd(nline, self.ARROW_MARKER_NUM)
+
 
 from PyQt4 import Qsci
 
