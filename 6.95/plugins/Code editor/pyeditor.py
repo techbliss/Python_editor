@@ -384,9 +384,9 @@ class Ui_MainWindow(object):
             os.path.join(os.path.expanduser('~'), os.path.expandvars(str(self.path)))
             sys.path.insert(0, str(self.path))
             exec (script, g)
-        except Exception, error:
-            print "An exception was thrown!"
-            print str(error)
+        except Exception as e:
+            print e.__doc__
+            print e.message
         else:
             exec (script, g)
 
