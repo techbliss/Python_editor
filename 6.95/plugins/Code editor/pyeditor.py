@@ -392,17 +392,20 @@ class Ui_MainWindow(object):
 
 
     def runtoprob(self):
-
         try:
             self.path = QtCore.QFileInfo(self.filename).path()
-        except AttributeError:
-            pass
-        self.path = QtCore.QFileInfo(self.filename).path()
-        g = globals()
-        os.chdir(str(self.path))
-        script = str(self.codebox.text())
-        import cProfile
-        cProfile.run(script)
+            self.path = QtCore.QFileInfo(self.filename).path()
+            g = globals()
+            os.chdir(str(self.path))
+            script = str(self.codebox.text())
+            import cProfile
+            cProfile.run(script)
+        except Exception as e:
+            print e.__doc__
+            print e.message
+        else:
+            import cProfile
+            cProfile.run(script)
 
 
 
