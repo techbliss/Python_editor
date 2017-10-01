@@ -58,34 +58,12 @@ or it wont work
 **Tip!**
 Use hit hotkey Alt+E twize to load the editor.
 
-
-**Changelog v2**
+**Current Changelog 1.4**
 ```
-Clean up code
-Zoom -/+
-Font box
-Getting redy for debugger feature
+Pyqt5 version > Compatible with Ida pro 7.0
+New plugin Loader (actions)
+Smal fixes
 ```
-
-**Changelog v3**
-```
-APi working
-better path recognition
-apit on/off toggle
-run full python programs.
-```
-
-**Changelog v4**
-```
-Added font box Getting.
-ready for debugger(added breakpoint boxes in editor).
-```
-
-**Changelog v5**
-```
-Pyqt5 version >6.8 added
-```
-
 
 **Hotkeys**
 ```
