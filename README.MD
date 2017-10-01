@@ -22,7 +22,7 @@ PyQt4/or PyQt5 depends on ida pro version.
 
 [Pyqt5](https://www.techbliss.org/threads/ida-pro-pyqt5-5-6-2-x32-complete-installer-package-by-storm-shadow.909/#post-3114)
 
-
+UPDATE visit forum for ida 7.0 PyQt5 installer.
 
 **build yourself**
 
