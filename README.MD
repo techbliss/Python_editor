@@ -14,6 +14,8 @@ ida pro or ida pro demo
 
 PyQt4/or PyQt5 depends on ida pro version.
 
+**It needs Qscilla module(Qsci.pyd), not provided by hex-ray, but found in the links under.**
+
 **Pyqt4 installer**
 
 [Pyqt4](http://www.techbliss.org/threads/pyqt-win-gpl-4-11-qt-4-4-8-7-for-ida-pro-total-package-installer-by-storm-shadow.768/)
