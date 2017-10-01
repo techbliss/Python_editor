@@ -62,7 +62,7 @@ Use hit hotkey Alt+E twize to load the editor.
 ```
 Pyqt5 version > Compatible with Ida pro 7.0
 New plugin Loader (actions)
-Smal fixes
+Small fixes
 ```
 
 **Hotkeys**
