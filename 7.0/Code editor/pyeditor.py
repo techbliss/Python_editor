@@ -484,11 +484,11 @@ class MyWindow(QtWidgets.QMainWindow):
             QMessageBox.No, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
-            print dn
+#            print dn
             os.chdir(dn)
-            print dn
+ #           print dn
             #os.chdir('../..')
-            print dn
+  #          print dn
             print '''
 ###################################################
 #              Author Storm Shadow                #
