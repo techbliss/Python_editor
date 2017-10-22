@@ -26,6 +26,9 @@ PyQt4/or PyQt5 depends on ida pro version.
 
 [Pyqt5 ida pro 7.0](https://www.techbliss.org/threads/ida-pro-7-0-pyqt5-total-package-by-storm-shadow.950/)
 
+**IMPORTANT!
+you have to take Qt5Core.dll , Qt5Gui.dll, Qt5widgets.dll from PyQt5 package and overwrite the ones in ida pro 7.0 folder**
+
 **build yourself**
 
 ```
