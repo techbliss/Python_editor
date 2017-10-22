@@ -101,14 +101,14 @@ Added Plugin manager
 
 
 
-
-
 ![d](https://cloud.githubusercontent.com/assets/3592375/11515674/4e940c26-987f-11e5-805c-3cbef0069c99.png)
 
 
 **autocomplete**
 
 ![ida](https://cloud.githubusercontent.com/assets/3592375/20944032/3fd0b9e4-bc02-11e6-9072-1c447f935267.png)
+
+[![Plguin Manager](https://j.gifs.com/gL52pD.gif)](https://www.youtube.com/watch?v=4rB6hddsVs4)
 
 profile code for speed issues
 
