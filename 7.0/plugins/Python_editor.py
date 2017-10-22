@@ -10,7 +10,7 @@ import ico
 from ico import *
 
 
-PLUGIN_VERSION = "1.4"
+PLUGIN_VERSION = "1.5"
 IDAVERISONS    = "IDA PRO 7.0+"
 AUTHORS        = "Storm Shadow"
 DATE           = "2017"

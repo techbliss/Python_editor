@@ -33,20 +33,30 @@ print " ###################################################\n" \
 import os
 import sys
 
+
+
 try:
     dn = idaapi.idadir("plugins\\Code editor")
 except NameError:
     dn = os.getcwd()
+
+try:
+    TemplateFile = idaapi.idadir("plugins\\Code editor\\template\\Plugin_temp")
+except NameError:
+    TemplateFile = os.getcwd()+r'\\template\\Plugin_temp'
+
 sys.path.insert(0, dn)
-sys.path.insert(0, os.getcwd()+r'\icons')
+sys.path.insert(0, os.getcwd()+r'\\icons')
+
+sys.path.insert(0, os.getcwd()+r'\\template')
+
 
 import PyQt5
-from PyQt5 import QtCore, QtGui, Qsci, QtWidgets
-from PyQt5.Qsci import QsciScintilla, QsciLexerPython, QsciAPIs, \
-    QsciScintillaBase
-from PyQt5.QtGui import QFont, QFontMetrics, QColor, QTextCursor
-from PyQt5.QtWidgets import QMainWindow, QDialog, QMessageBox, QDesktopWidget, QWidget
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QObject, QEvent, QCoreApplication
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.Qsci import QsciScintilla, QsciLexerPython
+from PyQt5.QtGui import QFont, QFontMetrics, QColor
+from PyQt5.QtWidgets import QDialog, QMessageBox, QWizard, QWizardPage
+from PyQt5.QtCore import QCoreApplication
 
 plugin_path = ""
 if sys.platform == "win32":
@@ -91,11 +101,15 @@ except ImportError:
     import icons.iconf
 
 try:
+    import icon4
+except ImportError:
+    pass
+
+try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
     def _fromUtf8(s):
         return s
-
 try:
     _encoding = QtWidgets.QApplication.UnicodeUTF8
 
@@ -107,15 +121,380 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtWidgets.QApplication.translate(context, text, disambig)
 
-class Ui_MainWindow(object):
+class Ui_messageformForm(QtWidgets.QWidget):
+    def setupUi1(self, messageformForm):
+        messageformForm.setObjectName("messageformForm")
+        messageformForm.resize(404, 169)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(messageformForm.sizePolicy().hasHeightForWidth())
+        messageformForm.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("Consolas")
+        messageformForm.setFont(font)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/icons/twa.gif"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        messageformForm.setWindowIcon(icon2)
+        self.label = QtWidgets.QLabel(messageformForm)
+        self.label.setGeometry(QtCore.QRect(40, 20, 341, 111))
+        font = QtGui.QFont()
+        font.setPointSize(19)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
+
+        self.retranslateUi(messageformForm)
+        QtCore.QMetaObject.connectSlotsByName(messageformForm)
+
+    def retranslateUi(self, messageformForm):
+        _translate = QtCore.QCoreApplication.translate
+        messageformForm.setWindowTitle(_translate("messageformForm", "Soon to be fixed"))
+        self.label.setText(_translate("messageformForm", "Soon to be fixed"
+))
+
+class Ui_Wizard(QtWidgets.QWizard):
+    def __init__(self, parent=None):
+        super(Ui_Wizard, self).__init__(parent=None)
+        Wizard.setObjectName("Wizard")
+        Wizard.resize(727, 582)
+        font = QtGui.QFont()
+        font.setFamily("Calibri Light")
+        Wizard.setFont(font)
+        Wizard.setOptions(QtWidgets.QWizard.HelpButtonOnRight)
+        self.wizardPage1 = QtWidgets.QWizardPage()
+        font = QtGui.QFont()
+        font.setFamily("Calibri Light")
+        font.setPointSize(20)
+        self.wizardPage1.setFont(font)
+        self.wizardPage1.setObjectName("wizardPage1")
+        self.textBrowser_2 = QtWidgets.QTextBrowser(self.wizardPage1)
+        self.textBrowser_2.setGeometry(QtCore.QRect(130, 140, 421, 131))
+        self.textBrowser_2.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.textBrowser_2.setObjectName("textBrowser_2")
+        Wizard.addPage(self.wizardPage1)
+        self.wizardPage = QtWidgets.QWizardPage()
+        self.wizardPage.setTitle("")
+        self.wizardPage.setSubTitle("")
+        self.wizardPage.setObjectName("wizardPage")
+        self.textBrowser_4 = QtWidgets.QTextBrowser(self.wizardPage)
+        self.textBrowser_4.setGeometry(QtCore.QRect(130, 140, 499, 239))
+        self.textBrowser_4.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.textBrowser_4.setObjectName("textBrowser_4")
+        Wizard.addPage(self.wizardPage)
+        self.tempwizardPage = QtWidgets.QWizardPage()
+        self.tempwizardPage.setObjectName("tempwizardPage")
+        self.TemptextEdit = Qsci.QsciScintilla(self.tempwizardPage)
+        self.TemptextEdit.setGeometry(QtCore.QRect(-11, 9, 711, 391))
+        self.TemptextEdit.setToolTip("")
+        self.TemptextEdit.setWhatsThis("")
+        self.TemptextEdit.setObjectName("TemptextEdit")
+        self.horizontalLayoutWidget = QtWidgets.QWidget(self.tempwizardPage)
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(560, 410, 141, 51))
+        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.temppushButtonopen = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.temppushButtonopen.setObjectName("temppushButtonopen")
+        self.horizontalLayout.addWidget(self.temppushButtonopen)
+        self.temppushButtonsave = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.temppushButtonsave.setObjectName("temppushButtonsave")
+        self.horizontalLayout.addWidget(self.temppushButtonsave)
+        Wizard.addPage(self.tempwizardPage)
+        self.scriptwizardPage = QtWidgets.QWizardPage()
+        self.scriptwizardPage.setObjectName("scriptwizardPage")
+        self.textBrowser_5 = QtWidgets.QTextBrowser(self.scriptwizardPage)
+        self.textBrowser_5.setGeometry(QtCore.QRect(120, 130, 499, 239))
+        self.textBrowser_5.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.textBrowser_5.setObjectName("textBrowser_5")
+        Wizard.addPage(self.scriptwizardPage)
+        self.wizardPage_3 = QtWidgets.QWizardPage()
+        self.wizardPage_3.setObjectName("wizardPage_3")
+        self.script_textEdit = Qsci.QsciScintilla(self.wizardPage_3)
+        self.script_textEdit.setGeometry(QtCore.QRect(-7, -1, 711, 401))
+        self.script_textEdit.setToolTip("")
+        self.script_textEdit.setWhatsThis("")
+        self.script_textEdit.setObjectName("script_textEdit")
+        self.horizontalLayoutWidget_2 = QtWidgets.QWidget(self.wizardPage_3)
+        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(480, 410, 221, 51))
+        self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.scriptGrabpushButton = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.scriptGrabpushButton.setObjectName("scriptGrabpushButton")
+        self.horizontalLayout_2.addWidget(self.scriptGrabpushButton)
+        self.scriptpushButtonopen = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.scriptpushButtonopen.setObjectName("scriptpushButtonopen")
+        self.horizontalLayout_2.addWidget(self.scriptpushButtonopen)
+        self.scriptpushButtonsave = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.scriptpushButtonsave.setObjectName("scriptpushButtonsave")
+        self.horizontalLayout_2.addWidget(self.scriptpushButtonsave)
+        Wizard.addPage(self.wizardPage_3)
+        self.wizardPage_2 = QtWidgets.QWizardPage()
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.wizardPage_2.setFont(font)
+        self.wizardPage_2.setObjectName("wizardPage_2")
+        self.textBrowser_6 = QtWidgets.QTextBrowser(self.wizardPage_2)
+        self.textBrowser_6.setGeometry(QtCore.QRect(170, 140, 411, 191))
+        self.textBrowser_6.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.textBrowser_6.setObjectName("textBrowser_6")
+        Wizard.addPage(self.wizardPage_2)
+        #font textedit
+        self.skrift = QFont()
+        self.skrift.setFamily('Consolas')
+        self.skrift.setFixedPitch(True)
+        self.skrift.setPointSize(11)
+        self.TemptextEdit.setFont(self.skrift)
+        self.script_textEdit.setFont(self.skrift)
+
+        #python style temp
+        self.lexer = QsciLexerPython(self.TemptextEdit)
+        self.lexer.setFont(self.skrift)
+        self.lexer.setEolFill(True)
+        #Python style scritps
+        self.lexer = QsciLexerPython(self.script_textEdit)
+        self.lexer.setFont(self.skrift)
+        self.lexer.setEolFill(True)
+        self.filename = ""
+        #python style temp
+        self.TemptextEdit.setAutoCompletionThreshold(0)
+        self.TemptextEdit.setAutoCompletionThreshold(6)
+        self.TemptextEdit.setAutoCompletionThreshold(8)
+        self.TemptextEdit.setAutoCompletionSource(Qsci.QsciScintilla.AcsAPIs)
+#        self.TemptextEdit.setDefaultFont(self.skrift)
+        self.TemptextEdit.setLexer(self.lexer)
+        self.TemptextEdit.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Consolas')
+        #python style script
+        self.script_textEdit.setAutoCompletionThreshold(0)
+        self.script_textEdit.setAutoCompletionThreshold(6)
+        self.script_textEdit.setAutoCompletionThreshold(8)
+        self.script_textEdit.setAutoCompletionSource(Qsci.QsciScintilla.AcsAPIs)
+#        self.script_textEdit.setDefaultFont(self.skrift)
+        self.script_textEdit.setLexer(self.lexer)
+        self.script_textEdit.SendScintilla(QsciScintilla.SCI_STYLESETFONT, 1, 'Consolas')
+
+        #line numbers temp
+        fontmetrics = QFontMetrics(self.skrift)
+        self.TemptextEdit.setMarginsFont(self.skrift)
+        self.TemptextEdit.setMarginWidth(0, fontmetrics.width("00000") + 6)
+        self.TemptextEdit.setTabWidth(4)
+        #line numbers script
+        fontmetrics = QFontMetrics(self.skrift)
+        self.script_textEdit.setMarginsFont(self.skrift)
+        self.script_textEdit.setMarginWidth(0, fontmetrics.width("00000") + 6)
+        self.script_textEdit.setTabWidth(4)
+
+        #brace temp
+        self.TemptextEdit.setBraceMatching(QsciScintilla.SloppyBraceMatch)
+        #brace script
+        self.script_textEdit.setBraceMatching(QsciScintilla.SloppyBraceMatch)
+
+        #auto line tab =4 temp
+        self.TemptextEdit.setAutoIndent(True)
+        #auto line tab =4 script
+        self.TemptextEdit.setAutoIndent(True)
+
+        #scroolbar
+        self.script_textEdit.SendScintilla(QsciScintilla.SCI_SETHSCROLLBAR, 1)
+        try:
+            bs = open(TemplateFile).read()
+            bba = QtCore.QByteArray(bs)
+            self.bts = QtCore.QTextStream(bba)
+            self.bheysa = self.bts.readAll()
+            self.TemptextEdit.setText(self.bheysa)
+            self.TemptextEdit.setMarkerBackgroundColor((QColor(66, 66, 255)))
+            marker = self.TemptextEdit.markerDefine(PyQt5.Qsci.QsciScintilla.Rectangle, 2)
+
+            self.TemptextEdit.markerAdd(7, 2)
+            self.TemptextEdit.markerAdd(11, 2)
+            self.TemptextEdit.markerAdd(12, 2)
+            self.TemptextEdit.markerAdd(13, 2)
+            self.TemptextEdit.markerAdd(14, 2)
+            self.TemptextEdit.markerAdd(15, 2)
+            self.TemptextEdit.markerAdd(19, 2)
+            self.TemptextEdit.markerAdd(27, 2)
+            self.TemptextEdit.markerAdd(34, 2)
+            self.TemptextEdit.markerAdd(35, 2)
+            self.TemptextEdit.markerAdd(40, 2)
+            self.TemptextEdit.markerAdd(41, 2)
+            self.TemptextEdit.markerAdd(42, 2)
+            self.TemptextEdit.markerAdd(43, 2)
+            self.TemptextEdit.markerAdd(44, 2)
+            self.TemptextEdit.markerAdd(45, 2)
+
+            self.TemptextEdit.markerAdd(48, 2)
+            self.TemptextEdit.markerAdd(50, 2)
+            self.TemptextEdit.markerAdd(51, 2)
+            self.TemptextEdit.markerAdd(52, 2)
+            self.TemptextEdit.markerAdd(53, 2)
+            self.TemptextEdit.markerAdd(54, 2)
+            self.TemptextEdit.markerAdd(55, 2)
+
+            self.TemptextEdit.markerAdd(62, 2)
+            self.TemptextEdit.markerAdd(63, 2)
+            self.TemptextEdit.markerAdd(64, 2)
+
+            self.TemptextEdit.markerAdd(67, 2)
+            self.TemptextEdit.markerAdd(89, 2)
+
+            self.TemptextEdit.markerAdd(97, 2)
+            self.TemptextEdit.markerAdd(98, 2)
+            self.TemptextEdit.markerAdd(99, 2)
+            self.TemptextEdit.markerAdd(102, 2)
+
+
+
+
+
+        except:
+            self.TemptextEdit.setText('Plugin_temp file not found')
+            pass
+
+
+        self.retranslateUi2(Wizard)
+        QtCore.QMetaObject.connectSlotsByName(Wizard)
+
+    def retranslateUi2(self, Wizard):
+        _translate = QtCore.QCoreApplication.translate
+        Wizard.setWindowTitle(_translate("Wizard", "           Ida Pro Plugin Wizard"))
+        self.textBrowser_2.setHtml(_translate("Wizard", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Calibri Light\'; font-size:20pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Welcome to the plugin wizard.</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Please follow the steps in the wizard, to tranform your code, to a full Ida Pro plugin.</p></body></html>"))
+        self.textBrowser_4.setHtml(_translate("Wizard", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Calibri Light\'; font-size:8.14286pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">First we create the plugin loader</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Then we change the higlightet text in the template, and then save the plugin loader in Ida Pro Plugins folder.</span></p></body></html>"))
+        self.temppushButtonopen.setText(_translate("Wizard", "Open"))
+        self.temppushButtonsave.setText(_translate("Wizard", "Save"))
+        self.textBrowser_5.setHtml(_translate("Wizard", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Calibri Light\'; font-size:8.14286pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Now we grab the editors current script, or open a new script.<br />Remember to save this in the right folder.<br />Plugins\\My_plugin_folder as declared in the template.</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt;\"><br /></p></body></html>"))
+        self.scriptGrabpushButton.setText(_translate("Wizard", "Grab from Editor"))
+        self.scriptpushButtonopen.setText(_translate("Wizard", "Open"))
+        self.scriptpushButtonsave.setText(_translate("Wizard", "Save"))
+        self.textBrowser_6.setHtml(_translate("Wizard", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Calibri Light\'; font-size:20pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Loader Template should now be in <br />ida pro\\plugin<br />script should be in a subfolder<br />ida pro\\plugin\\Myplugin\\</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">If above are correct your good to go!</p></body></html>"))
+
+        self.temppushButtonopen.clicked.connect(self.opentemp)
+        self.temppushButtonsave.clicked.connect(self.savetemp)
+        self.scriptpushButtonopen.clicked.connect(self.openscript)
+        self.scriptpushButtonsave.clicked.connect(self.savescript)
+        self.scriptGrabpushButton.clicked.connect(self.grapper)
+
+    def grapper(self):
+        #hellotext = Ui_MainWindow
+      #  hello2= hellotext.sendgrapped
+#   print str(hello2)
+
+        messageformForm.show()
+
+
+    def opentemp(self):
+        print "hello"
+        self.path = QtCore.QFileInfo(self.filename).path()
+
+        # Get filename and show only .writer files
+        (self.filename, _) = \
+            QtWidgets.QFileDialog.getOpenFileName(self.wizardPage_3,
+                'Open File', self.path,
+                'Python Files (*.py *.pyc *.pyw)', '')
+
+        if self.filename:
+            with open(self.filename, 'r') as self.file:
+                self.TemptextEdit.setText(self.file.read())
+        os.chdir(str(self.path))
+
+
+    def savetemp(self):
+        self.path = QtCore.QFileInfo(self.filename).path()
+        (self.filename, _) = \
+            QtWidgets.QFileDialog.getSaveFileName(self, 'Save as'
+                , self.path, 'Python Files (*.py *.pyc *.pyw)')
+        if self.filename:
+            self.savetexttemp(self.filename)
+        os.chdir(str(self.path))
+
+    def savetexttemp(self, fileName):
+        textout = self.TemptextEdit.text()
+        file = QtCore.QFile(fileName)
+        if file.open(QtCore.QIODevice.WriteOnly):
+            QtCore.QTextStream(file) << textout
+        else:
+            QtWidgets.QMessageBox.information(self.tempwizardPage,
+                    'Unable to open file', file.errorString())
+        os.chdir(str(self.path))
+
+    def openscript(self):
+        print "hello"
+        self.path = QtCore.QFileInfo(self.filename).path()
+
+        # Get filename and show only .writer files
+        (self.filename, _) = \
+            QtWidgets.QFileDialog.getOpenFileName(self.wizardPage_3,
+                'Open File', self.path,
+                'Python Files (*.py *.pyc *.pyw)', '')
+
+        if self.filename:
+            with open(self.filename, 'r') as self.file:
+                self.script_textEdit.setText(self.file.read())
+        os.chdir(str(self.path))
+
+
+    def savescript(self):
+        self.path = QtCore.QFileInfo(self.filename).path()
+        (self.filename, _) = \
+            QtWidgets.QFileDialog.getSaveFileName(self.wizardPage_3, 'Save as'
+                , self.path, 'Python Files (*.py *.pyc *.pyw)')
+        if self.filename:
+            self.savetextscript(self.filename)
+        os.chdir(str(self.path))
+
+    def savetextscript(self, fileName):
+        textout = self.script_textEdit.text()
+        file = QtCore.QFile(fileName)
+        if file.open(QtCore.QIODevice.WriteOnly):
+            QtCore.QTextStream(file) << textout
+        else:
+            QtWidgets.QMessageBox.information(self.wizardPage_3,
+                    'Unable to open file', file.errorString())
+        os.chdir(str(self.path))
+
+
+
+from PyQt5 import Qsci
+
+import sys
+#app2 = QtWidgets.QApplication(sys.argv)
+
+
+
+
+
+
+class Ui_MainWindow(QtWidgets.QMainWindow):
     ARROW_MARKER_NUM = 8
-    def setupUi(self, MainWindow):
+
+    def __init__(self, parent=None):
+        super(Ui_MainWindow, self).__init__(parent=None)
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(640, 480)
         self.vindu = QtWidgets.QWidget(MainWindow)
         self.vindu.setStyleSheet(_fromUtf8('notusedasyet'))
         #MainWindow.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        self.filename = ""
         self.vindu.setObjectName(_fromUtf8("vindu"))
         self.verticalLayout = PyQt5.QtWidgets.QVBoxLayout(self.vindu)
         icon = QtGui.QIcon()
@@ -253,6 +632,14 @@ class Ui_MainWindow(object):
         self.toolBar.Action20.setStatusTip("Profile Code")
         self.toolBar.Action20.setShortcut("CTRL+SHIFT+E")
         self.toolBar.Action20.triggered.connect(self.runtoprob)
+        #PLUGINS HERE WE GO
+        self.toolBar.Action21 = QtWidgets.QAction(QtGui.QIcon(":/ico5/plugin.png"),"Plugin",self.toolBar)
+        self.toolBar.Action21.setStatusTip("Make plugin")
+        self.toolBar.Action21.setShortcut("")
+        self.toolBar.Action21.triggered.connect(self.plugin_make)
+        self.scriptfile = self.codebox.text()
+        self.filename = ""
+
 
         #actions
         self.toolBar.addAction(self.toolBar.newAction)
@@ -292,10 +679,10 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.toolBar.Action19)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.toolBar.Action20)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action21)
 
-        #self.toolBar2.addAction(self.toolBar.Action21)
-        #self.toolBar2.addSeparator()
-        #font
+
         self.skrift = QFont()
         self.skrift.setFamily('Consolas')
         self.skrift.setFixedPitch(True)
@@ -340,12 +727,31 @@ class Ui_MainWindow(object):
         self.codebox.SendScintilla(QsciScintilla.SCI_SETHSCROLLBAR, 1)
 
         self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Ida Pro Python Script Editor", None))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar", None))
+
+
+
+    def plugin_make(self):
+
+        Wizard.show()
+
+    def sendgrapped(self):
+        print "hello"
+        helloclass = Ui_Wizard()
+        self.bsout = self.codebox.text()
+        helloclass.script_textEdit.setText(self.bsout)
+
+
+
+
+    def hubba(self):
+        print "sdfgsdgsgdghsghdg"
+        #print str(self.codebox.text())
 
 
     def udder(self):
@@ -370,6 +776,7 @@ class Ui_MainWindow(object):
             with open(self.filename, 'r') as self.file:
                 self.codebox.setText(self.file.read())
         os.chdir(str(self.path))
+
 
     def savefile(self):
         self.path = QtCore.QFileInfo(self.filename).path()
@@ -407,7 +814,6 @@ class Ui_MainWindow(object):
             pass
             #exec (script, g)
 
-
     def runtoprob(self):
         try:
             self.path = QtCore.QFileInfo(self.filename).path()
@@ -423,8 +829,6 @@ class Ui_MainWindow(object):
         else:
             import cProfile
             cProfile.run(script)
-
-
 
     def Diablecode(self):
         self.codebox.setAutoCompletionSource(Qsci.QsciScintilla.AcsNone)
@@ -444,6 +848,7 @@ class Ui_MainWindow(object):
     def webopen(self):
         import webbrowser
         webbrowser.open('https://www.hex-rays.com/')
+
 
     def sdkopen(self):
         import webbrowser
@@ -472,8 +877,12 @@ class Ui_MainWindow(object):
             self.codebox.markerAdd(nline, self.ARROW_MARKER_NUM)
 
 
+
+
+
+
+
 class MyWindow(QtWidgets.QMainWindow):
-    import os
     '''
     we have to ask user for quiting so we can change back to root dir
     '''
@@ -509,15 +918,26 @@ class MyWindow(QtWidgets.QMainWindow):
 
 from PyQt5 import Qsci
 
+
 if __name__ == '__main__':
     import sys
 
-    #app = QtWidgets.QApplication.instance()  # enable for usage outside
+    Wizard = QtWidgets.QWizard()
+    #Wizard = QtWidgets.QWizard()
+    #app = QtWidgets.QApplication.instance() # enable for usage outside
     #if not app:  # enable for usage outside
-        #app = QtWidgets.QApplication([])  # enable for usage outside
+    #    app = QtWidgets.QApplication([])  # enable for usage outside
     MainWindow = MyWindow()
     ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
+    messageformForm = QtWidgets.QWidget()
+    ui2 = Ui_Wizard()
+    ui3 = Ui_messageformForm()
+    ui3.setupUi1(messageformForm)
     MainWindow.resize(1000, 600)
     MainWindow.show()
-   # app.exec_()
+    #app.exec_()
+
+
+
+
+

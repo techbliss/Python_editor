@@ -60,11 +60,9 @@ or it wont work
 **Tip!**
 Use hit hotkey Alt+E twize to load the editor.
 
-**Current Changelog 1.4**
+**Current Changelog 1.5**
 ```
-Pyqt5 version > Compatible with Ida pro 7.0
-New plugin Loader (actions)
-Small fixes
+Added Plugin manager
 ```
 
 **Hotkeys**

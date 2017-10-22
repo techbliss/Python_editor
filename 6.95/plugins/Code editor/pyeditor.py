@@ -492,12 +492,12 @@ from PyQt5 import Qsci
 if __name__ == '__main__':
     import sys
 
-    #app = QtWidgets.QApplication.instance()  # enable for usage outside
-    #if not app:  # enable for usage outside
-        #app = QtWidgets.QApplication([])  # enable for usage outside
+    app = QtWidgets.QApplication.instance()  # enable for usage outside
+    if not app:  # enable for usage outside
+        app = QtWidgets.QApplication([])  # enable for usage outside
     MainWindow = MyWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.resize(1000, 600)
     MainWindow.show()
-    #app.exec_()
+    app.exec_()
