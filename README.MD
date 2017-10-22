@@ -108,7 +108,9 @@ Added Plugin manager
 
 ![ida](https://cloud.githubusercontent.com/assets/3592375/20944032/3fd0b9e4-bc02-11e6-9072-1c447f935267.png)
 
-[![Plguin Manager](https://j.gifs.com/gL52pD.gif)](https://www.youtube.com/watch?v=4rB6hddsVs4)
+**Plugin Manager**
+
+[![Plugin Manager](https://j.gifs.com/gL52pD.gif)](https://www.youtube.com/watch?v=4rB6hddsVs4)
 
 profile code for speed issues
 
