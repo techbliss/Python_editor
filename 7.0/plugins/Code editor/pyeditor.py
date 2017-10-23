@@ -633,10 +633,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.toolBar.Action20.setShortcut("CTRL+SHIFT+E")
         self.toolBar.Action20.triggered.connect(self.runtoprob)
         #PLUGINS HERE WE GO
-        self.toolBar.Action21 = QtWidgets.QAction(QtGui.QIcon(":/ico5/plugin.png"),"Plugin",self.toolBar)
-        self.toolBar.Action21.setStatusTip("Make plugin")
-        self.toolBar.Action21.setShortcut("")
-        self.toolBar.Action21.triggered.connect(self.plugin_make)
+        self.toolBar.Action22 = QtWidgets.QAction(QtGui.QIcon(":/ico5/plugin.png"),"Plugin",self.toolBar)
+        self.toolBar.Action22.setStatusTip("Make plugin")
+        self.toolBar.Action22.setShortcut("")
+        self.toolBar.Action22.triggered.connect(self.plugin_make)
         self.scriptfile = self.codebox.text()
         self.filename = ""
 
@@ -681,7 +681,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.toolBar.addAction(self.toolBar.Action20)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.toolBar.Action21)
-
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.toolBar.Action22)
 
         self.skrift = QFont()
         self.skrift.setFamily('Consolas')
@@ -935,7 +936,7 @@ if __name__ == '__main__':
     ui3.setupUi1(messageformForm)
     MainWindow.resize(1000, 600)
     MainWindow.show()
-    #app.exec_()
+   # app.exec_()
 
 
 
