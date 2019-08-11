@@ -882,9 +882,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
 
 
-
-
-
 class MyWindow(QtWidgets.QMainWindow):
     '''
     we have to ask user for quiting so we can change back to root dir

@@ -26,6 +26,8 @@ PyQt4/or PyQt5 depends on ida pro version.
 
 [Pyqt5 ida pro 7.0](https://www.techbliss.org/threads/ida-pro-7-0-pyqt5-total-package-by-storm-shadow.950/)
 
+**PyQt5 for 7.2 is shipped within the package**
+
 **IMPORTANT!
 you have to take Qt5Core.dll , Qt5Gui.dll, Qt5widgets.dll from PyQt5 package and overwrite the ones in ida pro 7.0 folder**
 
@@ -63,9 +65,9 @@ or it wont work
 **Tip!**
 Use hit hotkey Alt+E twize to load the editor.
 
-**Current Changelog 1.5**
+**Current Changelog 1.7**
 ```
-Added Plugin manager
+Updatetet for ida pro 7.2
 ```
 
 **Hotkeys**
