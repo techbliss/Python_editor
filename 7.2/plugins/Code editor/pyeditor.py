@@ -935,8 +935,6 @@ class MyWindow(QtWidgets.QMainWindow):
 from PyQt5 import Qsci
 
 
-
-
 Wizard = QtWidgets.QWizard()
 #Wizard = QtWidgets.QWizard()
 #app = QtWidgets.QApplication.instance() # enable for usage outside
