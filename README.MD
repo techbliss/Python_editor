@@ -67,7 +67,7 @@ Use hit hotkey Alt+E twize to load the editor.
 
 **Current Changelog 1.7**
 ```
-Updatetet for ida pro 7.2
+Updated for ida pro 7.5
 ```
 
 **Hotkeys**
